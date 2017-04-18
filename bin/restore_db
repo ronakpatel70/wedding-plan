@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# This script decrypts and restores a database snapshot.
+
+ANSI_GREEN="\033[32;1m"
+ANSI_RED="\033[31;1m"
+ANSI_RESET="\033[0m"
+
+echo "Dropping existing database..."
+if ! dropdb -w -h "$1" -U "$2" --if-exists wedding_expo; then
+	echo -en "${ANSI_RED}Could not connect to database.\n${ANSI_RESET}Encrypted backup file left at $3.\n"
+	exit 1
+fi
+
+echo "Decrypting file..."
+gpg2 --no-tty -d "$3" | pg_restore -COx -Fc -w -d template1 -h "$1" -U "$2"
+
+echo "Scrubbing database..."
+psql wedding_expo <<-EOF
+	UPDATE users SET password_digest = NULL, stripe_customer_id = NULL, stripe_recipient_id = NULL;
+	UPDATE vendors SET default_card_id = NULL, stripe_customer_id = NULL,
+		profile_image_file_name = NULL, profile_image_content_type = NULL,
+		profile_image_file_size = NULL, profile_image_updated_at = NULL;
+	UPDATE payments SET card_id = NULL, stripe_charge_id = NULL;
+	UPDATE cards SET last4 = 1234, stripe_card_id = '';
+	UPDATE subscriptions SET stripe_customer_id = '', stripe_subscription_id = '';
+	DELETE FROM transfers;
+EOF
+
+echo "Setting environment..."
+bin/rails db:environment:set RAILS_ENV=test
+
+echo "Cleaning up cached snapshots..."
+pushd tmp/cache/snapshots
+	ls -t | tail -n +2 | xargs rm -rf
+popd
+echo -en "${ANSI_GREEN}Restored database from $4.\n${ANSI_RESET}"

@@ -1,0 +1,51 @@
+html, body, input, select, button {
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	font-feature-settings: "kern" 1;
+	font-kerning: normal;
+}
+
+input, select, textarea {
+  font-weight: $font-weight-normal;
+  &::placeholder {
+    color: #c2c7cc;
+  }
+}
+
+strong {
+  font-weight: 400;
+}
+
+.success {color: $success-color;}
+.warning {color: $warning-color;}
+.alert {color: $alert-color;}
+// .primary {color: $primary-color;}
+.info {color: $info-color;}
+.secondary {color: $secondary-color;}
+
+.size-12 { font-size: 12px; }
+.size-14 { font-size: 14px; }
+.size-16 { font-size: 16px; }
+.size-18 { font-size: 18px; }
+.size-21 { font-size: 21px; }
+.size-24 { font-size: 24px; }
+.size-36 { font-size: 36px; }
+.size-48 { font-size: 48px; }
+.size-56 { font-size: 56px; }
+.size-60 { font-size: 60px; }
+.size-72 { font-size: 72px; }
+
+.inline {
+  display: inline-block;
+}
+.hide {
+  display: none;
+}
+.deleted {
+  color: $alert-color;
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+.canceled {
+  opacity: 0.4;
+}

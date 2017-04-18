@@ -1,0 +1,17 @@
+= content_for(:title, 'Articles')
+= content_for(:actions, action_list(:new))
+
+%table
+  %thead
+    %tr
+      %th(width="150") Page
+      %th(width="90") Order
+      %th(width="450") Title
+      %th(width="300") Modified
+  %tbody
+    - @articles.each do |article|
+      %tr.link(data-href="#{article_path(article)}")
+        %td= article.page.titleize
+        %td= article.order
+        %td= article.title
+        %td= article.updated_at

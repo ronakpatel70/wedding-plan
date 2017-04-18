@@ -1,0 +1,44 @@
+#!/bin/sh
+
+echo "$PRIVATE_KEY" > .ci_key
+chmod 400 .ci_key
+unset PRIVATE_KEY
+
+set -e -x
+
+ROOT=/srv/admin
+REL=$(cat REL)
+
+apk update && apk add openssh-client
+
+# Upload compressed app files to the production server.
+scp -i .ci_key -o StrictHostKeyChecking=no $REL.tar.gz dylan@admin.weddingexpo.co:$ROOT/rel
+
+ssh -i .ci_key -o StrictHostKeyChecking=no dylan@admin.weddingexpo.co <<-EOF
+	set -e -x
+
+	# Unpack uploaded files and move them to a new directory.
+	cd $ROOT/rel && mkdir $REL
+	tar -xzf $REL.tar.gz -C $REL && rm $REL.tar.gz
+
+	pushd $REL
+		bin/bundle install --deployment --local
+
+		# Migrate database if new migrations are present.
+		if bin/rails db:migrate:status | grep -q down; then
+			unicornd stop
+			bin/dump_db migration
+			bin/rails db:migrate
+		fi
+	popd
+
+	# Point the `cur` symlink to the new release.
+	ln -nsf $ROOT/rel/$REL $ROOT/cur
+	sudo service remote_syslog restart
+
+	# Restart unicorn; fail the build if unsuccessful.
+	unicornd upgrade
+
+	# Clean up all but the last five releases.
+	ls -t | tail -n +6 | xargs rm -rf
+EOF

@@ -1,0 +1,20 @@
+- show_errors_for(@package)
+
+= form_for(@package, builder: FormBuilder) do |f|
+  = f.select_group :type, Package.types.keys
+  = f.text_group :name
+
+  = f.text_group :prize_ids, name: 'package[prize_ids][]', label: 'Prizes', value: nil
+
+  = f.text_area_group :rules, rows: 4
+
+  = f.text_group(:winner_id, spellcheck: false, value: nil)
+
+  %button.button Save
+  = delete_link(@package)
+
+:javascript
+  new TokenField(id('package_winner_id'), '#{search_path(:users, format: :json)}',
+    {multiple: false, values: [#{@package.winner.as_json(only: :id, methods: :to_s).to_json}]})
+  new TokenField(id('package_prize_ids'), '#{search_path(:prizes, show: @package.show_id, status: "approved", format: :json)}',
+      {multiple: true, values: #{@package.prizes.as_json(only: :id, methods: :to_s).to_json}})

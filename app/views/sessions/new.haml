@@ -1,0 +1,18 @@
+.logo-box
+  = icon(:we, class: 'logo')
+.login-form
+  - if alert
+    .alert-box.alert= alert
+  - if current_user
+    .alert-box.secondary Your session has expired. Please enter your password to continue.
+  %form(action="#{session_path}" method="post")
+    - if current_user
+      %input(name="session[email]" value="#{current_user.email}" disabled=true)
+    - else
+      %input(name="session[email]" placeholder="Email" autofocus=true)
+    %input(type="password" name="session[password]" placeholder="Password" autofocus=current_user)
+    %button.button.radius.expand(type="submit") Sign In
+    - if current_user
+      %a(onclick="document.getElementById('logout').submit()") Sign in as a different user
+  %form#logout(action="#{session_path}" method="post")
+    %input(type="hidden" name="_method" value="delete")

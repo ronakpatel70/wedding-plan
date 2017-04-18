@@ -1,0 +1,14 @@
+- show_errors_for(@transfer)
+
+= form_for(@transfer, builder: FormBuilder) do |f|
+  = f.hidden_field :user_id, value: @transfer.user_id
+  = hidden_field_tag :show_id, params[:show_id]
+  .row
+    = static_col 'User', @transfer.user, 4
+  .row
+    = f.text_col :amount, 3, value: number_to_currency(@transfer.amount / 100.0)
+  .row
+    = f.text_col :description, 4, value: "Staff payment for #{@transfer.user}"
+  .row
+    .small-5.columns
+      %button.button Save

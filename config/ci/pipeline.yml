@@ -1,0 +1,66 @@
+jobs:
+- name: admin
+  plan:
+  - do:
+    - get: admin
+      params: {depth: 1}
+      trigger: true
+    - task: build
+      file: admin/config/ci/build.yml
+    - task: deploy
+      file: admin/config/ci/deploy.yml
+      params:
+        PRIVATE_KEY: {{private-key}}
+    on_success:
+      put: notify
+      params:
+        text: "Build <$ATC_EXTERNAL_URL/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_JOB_NAME#$BUILD_NAME> succeeded. :tada:"
+    on_failure:
+      put: notify
+      params:
+        text: "Build <$ATC_EXTERNAL_URL/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_JOB_NAME#$BUILD_NAME> failed. :broken_heart:"
+- name: web
+  plan:
+  - do:
+    - get: web
+      params: {depth: 1}
+      trigger: true
+    - task: build
+      file: web/config/ci/build.yml
+    - task: deploy
+      file: web/config/ci/deploy.yml
+      params:
+        PRIVATE_KEY: {{private-key}}
+    on_success:
+      put: notify
+      params:
+        text: "Build <$ATC_EXTERNAL_URL/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_JOB_NAME#$BUILD_NAME> succeeded. :tada:"
+    on_failure:
+      put: notify
+      params:
+        text: "Build <$ATC_EXTERNAL_URL/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_JOB_NAME#$BUILD_NAME> failed. :broken_heart:"
+
+resource_types:
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: latest
+
+resources:
+- name: admin
+  type: git
+  source:
+    uri: git@github.com:wedding-expo/admin
+    branch: master
+    private_key: {{private-key}}
+- name: web
+  type: git
+  source:
+    uri: git@github.com:wedding-expo/web
+    branch: master
+    private_key: {{private-key}}
+- name: notify
+  type: slack-notification
+  source:
+    url: https://hooks.slack.com/services/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

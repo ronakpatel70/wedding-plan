@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -e -x
+
+env
+gem env
+
+BUNDLE_IGNORE_MESSAGES=true bin/bundle install --deployment --jobs 2 --retry 3 --without development
+bin/bundle package
+
+service postgresql start
+su postgres -c "createuser -s root"
+createdb -T template0 wedding_expo_test
+
+bin/rails test
+
+RAILS_ENV=production bin/rails assets:precompile
+pushd public/assets
+	zopfli *.*
+popd
+
+rel=$(cat .git/refs/heads/master | cut -c 1-7)
+
+mv bin/deploy ../build
+rm -rf tmp log/*
+tar -czf ../build/$rel.tar.gz *
+echo "$rel" > ../build/REL

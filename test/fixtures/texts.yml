@@ -1,0 +1,13 @@
+one:
+  sender: one (Vendor)
+  message: MyText
+  status: 1
+  sender_tel: MyText
+  recipient_tel: MyText
+
+two:
+  recipient: two (Vendor)
+  message: MyText
+  status: 1
+  sender_tel: MyText
+  recipient_tel: MyText

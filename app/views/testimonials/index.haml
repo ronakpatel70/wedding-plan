@@ -1,0 +1,11 @@
+= content_for(:title, "Testimonials for ".html_safe + link_to(@vendor.to_s, @vendor))
+
+%div= link_to 'Add testimonial', '#', class: 'toggle', data: {toggle: 'new_testimonial', hide: ''}
+= render(partial: 'form', object: Testimonial.new, as: 'testimonial')
+%br/
+%dl.accordion(data-accordion="")
+  - @testimonials.each do |testimonial|
+    %dd.accordion.navigation
+      %a= testimonial.author || '--'
+      .content
+        = render(partial: 'form', object: testimonial, as: 'testimonial')

@@ -1,0 +1,17 @@
+- show_errors_for(@job_app)
+
+= form_for(@job_app, builder: FormBuilder) do |f|
+  .row= f.text_col :user_id, 4
+  .row= f.select_col :status, 4, JobApplication.statuses.keys
+  .row
+    = f.text_col :requested_start, 2, placeholder: '7:30'
+    = f.text_col :requested_end, 2, placeholder: '19:30', col: 'end'
+  .row= f.text_area_col :requests, 4
+  .row
+    .small-5.columns
+      %button.button Save
+      = delete_link(@job_app)
+
+:javascript
+  new TokenField(id('job_application_user_id'), '#{search_path(:users, role: :staff, format: :json)}',
+    [#{ @job_app.user.as_json(only: :id, methods: :to_s).to_json }])

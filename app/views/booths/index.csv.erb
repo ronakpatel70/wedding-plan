@@ -1,0 +1,4 @@
+Vendor, Industry, Rewards Status, Booth Status, Size, Cell Phone, Storefront Address, Storefront City, Storefront State, Storefront Zip, <%= Config.add_ons.map { |k, v| v[:name] }.join(', ') %>
+<% @booths.each do |booth| %>
+<%= booth.vendor.name.escape_csv %>,<%= booth.vendor.industry %>,<%= booth.vendor.rewards_status %>,<%= booth.status %>,<%= booth.size %>,<%= number_to_phone(booth.vendor.cell_phone) %>,<%= booth.vendor.storefront_address&.street&.escape_csv %>,<%= booth.vendor.storefront_address&.city&.escape_csv %>,<%= booth.vendor.storefront_address&.state %>,<%= booth.vendor.storefront_address&.zip %>,<%= Config.add_ons.map { |k, v| @add_ons[booth.id][k] }.join(', ') %>
+<% end %>

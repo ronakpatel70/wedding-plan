@@ -1,0 +1,22 @@
+= form_for((offer.new_record? ? [@vendor, offer] : offer), builder: FormBuilder, html: {class: ('hide' if offer.new_record?)}) do |f|
+  %h4 New Offer
+  .row
+    = f.select_col :tier, 1, [1, 2, 3].reject { |t| @vendor.offers.where.not(tier: offer.tier).find_by(tier: t) }
+    = f.select_col :type, 2, Offer.types.keys
+    = f.text_col :value, 2, col: 'end'
+  .row
+    = f.text_col :name, 5
+  .row
+    = f.text_area_col :rules, 6, rows: 3
+  .row
+    .small-3.columns
+      %label(for="combo_#{offer.id}")
+        = f.check_box(:combo, id: "combo_#{offer.id}")
+        Combo offer
+  .row
+    .small-5.columns
+      %button.button Save
+      - if offer.persisted?
+        = link_to('Delete', offer, class: 'button-link alert', method: 'delete')
+      - else
+        %a.button.secondary(data-toggle="new_offer" href="") Cancel

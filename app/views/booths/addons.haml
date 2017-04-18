@@ -1,0 +1,29 @@
+- show_errors_for(@booth)
+
+= form_for(@booth, builder: FormBuilder) do |f|
+  %table#add-on-table
+    %thead
+      %tr
+        %th Add-on
+        %th Type (optional)
+        %th(width="110") Quantity
+        %th(width="140") Price
+        %th(width="50") Del
+    %tbody
+      = f.fields_for(:add_ons, @add_ons) do |add_on_fields|
+        %tr
+          %td= add_on_fields.select(:type, Config.add_ons.keys, {}, class: 'skinny')
+          %td
+            - if add_on_fields.object.config.has_key?(:values)
+              = add_on_fields.select(:value, add_on_fields.object.config[:values], {}, class: 'skinny')
+            - else
+              \--
+          %td= add_on_fields.select(:quantity, (1..3), {}, class: 'skinny')
+          %td= number_to_currency(add_on_fields.object.price / 100.0)
+          %td
+            - if add_on_fields.object.persisted?
+              = add_on_fields.check_box(:_destroy)
+            - else
+              \--
+  %button.button Save
+  %a.new-add-on.button-link.success New add-on

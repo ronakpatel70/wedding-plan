@@ -1,0 +1,17 @@
+%h2
+  Points
+  %small= link_to '+', new_point_path
+%table
+  %thead
+    %tr
+      %th Vendor
+      %th Event
+      %th Date
+      %th Status
+  %tbody
+    - @points.each do |point|
+      %tr.link(data-href="#{point_path(point)}")
+        %td= point.vendor
+        %td= point.event && point.event.users.first
+        %td= point.date
+        %td= point.event ? point.status.titleize : 'Unavailable'.html_safe

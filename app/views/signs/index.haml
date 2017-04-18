@@ -1,0 +1,30 @@
+= content_for(:title, 'Signs')
+= content_for(:actions, action_list(:new))
+
+%label.inline Key:
+= badge('In Use', 'radius success')
+= badge('Needed', 'radius warning')
+= badge('Unused', 'radius secondary')
+
+%table.sort
+  %thead
+    %tr
+      %th.desc(width="50" data-sort-as="int") #
+      %th(width="250") Front
+      %th(width="250") Back
+      %th(width="450") Vendors
+  %tbody
+    - @signs.each do |sign|
+      %tr.link(data-href="#{sign_path(sign)}")
+        %td= sign.id
+        %td= sign.front
+        %td= sign.back
+        %td
+          - sign.joined_vendors.each do |v|
+            - @id = v.split(',')[0].to_i and @name = v.split(',')[1]
+            - if sign.in_use_by == @id
+              = badge(@name, 'radius success')
+            - elsif @needed.include?(@id)
+              = badge(@name, 'radius warning')
+            - else
+              = badge(@name, 'radius secondary')

@@ -1,0 +1,13 @@
+one:
+  front: Wine Country Bride
+  back:
+  missing: false
+  informational: false
+  vendors: [one]
+
+two:
+  front: Premier Productions
+  back: Ellington Hall
+  missing: false
+  informational: false
+  vendors: [two]

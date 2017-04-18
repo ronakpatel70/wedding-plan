@@ -1,0 +1,81 @@
+/* misc.scss - styles that need to be organized */
+
+// Reset list style
+ul {
+  list-style: none;
+  margin: 0;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Fast fade out
+.fade {
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.ghost {
+  background-color: #fafafa;
+}
+
+// Vertically centers text
+.middle {
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+  > * {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+}
+.center {
+  text-align: center;
+}
+
+// Grid-aligned alert boxes
+.alert-box.grid {
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 0;
+}
+
+// Links that act like buttons
+.button-link {
+  margin: 1rem 2rem 1.0625rem 2rem;
+}
+
+.x {
+  right: 0.25rem;
+  background: inherit;
+  color: $oil;
+  font-size: 1.375rem;
+  line-height: .9;
+  margin-top: -14px;
+  opacity: 0.3;
+  padding: 2px 8px 4px 0;
+  position: absolute;
+  top: 50%;
+  &:hover {
+    color: $oil;
+    opacity: 0.5;
+  }
+}
+.alert-box .close {margin-top: -14px;}
+
+.filter:not(:first-child) {
+  margin-left: 1.275rem;
+}
+
+.f-dropdown.right-arrow {
+  &::before, &::after {left: auto;}
+  &::before {right: 10px;}
+  &::after {right: 9px;}
+}

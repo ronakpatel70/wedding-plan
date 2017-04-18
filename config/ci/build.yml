@@ -1,0 +1,16 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: waits/rails-pg
+    tag: latest
+
+inputs:
+- name: admin
+outputs:
+- name: build
+
+run:
+  dir: admin
+  path: bin/build

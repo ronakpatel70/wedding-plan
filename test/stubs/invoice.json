@@ -1,0 +1,74 @@
+{
+  "id": "in_99999",
+  "object": "invoice",
+  "amount_due": 15000,
+  "application_fee": null,
+  "attempt_count": 1,
+  "attempted": true,
+  "charge": "ch_d8D9s0",
+  "closed": true,
+  "currency": "usd",
+  "customer": "cus_79ZU2mLycWhs6c",
+  "date": 1464139009,
+  "description": null,
+  "discount": null,
+  "ending_balance": 0,
+  "forgiven": false,
+  "lines": {
+    "data": [
+      {
+        "id": "sub_1234",
+        "object": "line_item",
+        "amount": 15000,
+        "currency": "usd",
+        "description": null,
+        "discountable": true,
+        "livemode": true,
+        "metadata": {
+        },
+        "period": {
+          "start": 1466817409,
+          "end": 1469409409
+        },
+        "plan": {
+          "id": "rewards_monthly",
+          "object": "plan",
+          "amount": 15000,
+          "created": 1456443544,
+          "currency": "usd",
+          "interval": "month",
+          "interval_count": 1,
+          "livemode": false,
+          "metadata": {
+          },
+          "name": "Rewards Monthly",
+          "statement_descriptor": "WEDDING EXPO REWARDS",
+          "trial_period_days": null
+        },
+        "proration": false,
+        "quantity": 1,
+        "subscription": null,
+        "type": "subscription"
+      }
+    ],
+    "total_count": 1,
+    "object": "list",
+    "url": "/v1/invoices/in_2222/lines"
+  },
+  "livemode": false,
+  "metadata": {
+  },
+  "next_payment_attempt": null,
+  "paid": true,
+  "period_end": 1464139009,
+  "period_start": 1464139009,
+  "receipt_number": null,
+  "starting_balance": 0,
+  "statement_descriptor": null,
+  "subscription": "sub_83JcItwbPyAcvJ",
+  "subtotal": 15000,
+  "tax": null,
+  "tax_percent": null,
+  "total": 15000,
+  "webhooks_delivered_at": 1464139010
+}

@@ -1,0 +1,22 @@
+= content_for(:title, 'Shows')
+= content_for(:actions, action_list(:new))
+
+%table
+  %thead
+    %tr
+      %th Date
+      %th Location
+      %th Time
+      %th Ticket Prices
+      %td(width="90") Ribbons
+  %tbody
+    - @shows.each do |show|
+      %tr.link(data-href="#{show_path(show)}")
+        %td= show
+        %td= show.location
+        %td
+          = show.start_time
+          to #{show.end_time}
+        %td
+          = [(show.early_bird_price if show.early_bird_end_date), show.online_price, show.door_price].compact.map { |c| "$" + (c / 100).to_s }.join(" / ")
+        %td= show.prize_ribbons

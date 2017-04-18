@@ -1,0 +1,50 @@
+one:
+  name: Wine Country Bride
+  former_name: Galleria Bridal
+  email: info@winecountrybride.com
+  phone: 7075443695
+  contact: Cirkl
+  industry: 0
+  website: https://winecountrybride.com
+  stripe_customer_id: cus_79ZU2mLycWhs6c
+  rewards_status: 1
+  rewards_profile: This is a really awesome company to work with.
+  cell_phone: 7075555555
+  default_card: wcb_one
+  users: [dylan]
+
+two:
+  name: Wine Country Bridez
+  email: email@email.co
+  phone: 7075443695
+  contact: Cirkl
+  industry: 0
+  website: https://winecountrybridez.com
+  facebook: https://www.facebook.com
+  default_card: premier
+  users: [megan]
+
+weddings:
+  name: Wine Country Weddings
+  email: weddings@winecountrybride.com
+  phone: 7075443695
+  contact: Cirkl
+  industry: 0
+
+dj1:
+  name: DJ1
+  email: dj1@example.com
+  phone: 1234567890
+  contact: Dude
+  industry: 3
+  rewards_status: 3
+  show_statuses: {1: interested}
+
+dj2:
+  name: DJ2
+  email: dj2@example.com
+  phone: 1234567890
+  contact: Dude
+  industry: 3
+  rewards_status: 2
+  show_statuses: {1: interested}

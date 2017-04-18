@@ -1,0 +1,66 @@
+= content_for(:title, 'Booths')
+= content_for(:actions) do
+  %li.action.inline= link_to(icon(:document_plus), new_booth_path, class: "icon", title: "New booth")
+  %li.action.inline= link_to(icon(:file_type_table), request.path + ".csv", class: "icon", title: "Download CSV")
+  %li.action.inline= link_to(icon(:printer), paper_signs_show_booths_path(format: :pdf), class: "icon", title: "Print paper signs")
+  %li.action.inline= link_to(icon(:map), "/map", class: "icon", title: "Open map", target: "_blank")
+= content_for(:count, @count.to_s)
+
+%table.sort(data-cycle-col="7")
+  %thead
+    %tr
+      %th(width="18" data-sort-none)
+      %th(width="242") Vendor
+      %th(width="160") Industry
+      %th(width="90") Size
+      %th(width="100") Section
+      %th(width="140" data-sort-as="int" data-sort-reverse) Paid/Balance
+      %th(width="240" data-sort-as="custom" data-sort-reverse) Modified
+      %th Sign
+      %th(data-sort-reverse) Bag Promo
+      %th Payment
+  %tbody
+    = fold("pending booth", @pending)
+    - @booths.each do |booth|
+      %tr.link(height="39px" data-href="#{booth_path(booth)}" class="#{'folded' if booth.pending?}")
+        %td
+          - if booth.pending?
+            %i.octicon.octicon-primitive-dot.warning(title="Pending since #{booth.created_at}")
+          - elsif booth.denied?
+            %span.alert x
+        %td= booth.vendor
+        %td= booth.vendor.industry.titleize
+        %td= booth.size || '--'
+        %td= booth.coordinate.section if booth.coordinate
+        %td
+          - if booth.pending?
+            \--
+          - else
+            %span>= number_to_currency((booth.total - booth.balance) / 100.0).chomp('.00')
+            %span= '/' + number_to_currency(booth.balance / 100.0).chomp('.00')
+        %td(data-sort-by="#{booth.updated_at.to_i}")= booth.updated_at
+        %td= booth.sign_id ? link_to(booth.sign, sign_path(booth.sign_id), title: booth.sign.text) : badge('Needs sign', 'radius secondary') if @add_ons[booth.id]['sign']
+        %td
+          - if @add_ons[booth.id]['bag_promo'] && booth.received_marketing
+            = badge('Received', 'radius success')
+          - elsif @add_ons[booth.id]['bag_promo']
+            = badge('Waiting', 'radius secondary')
+        %td
+          - if booth.card?
+            = booth.card_id ? "Card" : 'Card [none on file]'
+          - else
+            = booth.payment_method.titleize
+    = fold("denied booth", @denied.length, class: 'alert')
+    - @denied.each do |booth|
+      %tr.disabled.link(height="39px" data-href="#{booth_path(booth)}" class="folded")
+        %td
+          %strong.alert(title="Denied") &times;
+        %td= booth.vendor
+        %td
+        %td
+        %td
+        %td
+        %td
+        %td
+        %td
+        %td

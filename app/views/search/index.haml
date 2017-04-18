@@ -1,0 +1,30 @@
+- set_title("Search results for '#{@query}'", "Search Results")
+- content_for(:count, @results.length.to_s)
+
+- content_for(:aside) do
+  %ul(style="padding-top: 4px; font-size: 0.875rem;")
+    - SearchController::FILTERS.each do |f|
+      %li.aside-link
+        - if f == @filter
+          %strong= f.humanize
+          %a.button.label.alert.round.right{:href => search_path(query: @query)} ✗
+        - else
+          = link_to(f.humanize, search_path(filter: f, query: @query))
+          .label.round.secondary.right= @counts[f]
+
+- if @results.length > 0
+  %table
+    %thead
+      %tr
+        %th(width="320") Name
+        %th(width="300") Description
+        %th Modified
+    %tbody
+      - @results.each do |result|
+        %tr
+          %td
+            = link_to(result[:name], result[:url])
+          %td= result[:description]
+          %td= result[:modified]
+- else
+  %p No results found.

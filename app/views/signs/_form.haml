@@ -1,0 +1,21 @@
+- show_errors_for(@sign)
+
+= form_for(@sign, builder: FormBuilder) do |f|
+  = @sign.id ? static_group('Number', @sign.id) : f.text_group(:id, label: 'Number')
+
+  = f.text_group :front
+  = f.text_group :back
+
+  = f.text_group :vendor_ids, name: 'sign[vendor_ids][]', label: 'Vendors', value: nil
+
+  = f.switch_group :informational, float: true
+  = f.switch_group :missing, float: true
+
+  %button.button Save
+  = delete_link(@sign)
+
+:javascript
+  setTimeout(function() {
+    new TokenField(id('sign_vendor_ids'), '#{search_path(:vendors, :json)}',
+      {multiple: true, values: #{@sign.vendors.as_json(only: :id, methods: :to_s).to_json}})
+  }, 1);

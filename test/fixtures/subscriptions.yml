@@ -1,0 +1,26 @@
+active:
+  stripe_subscription_id: sub_83JcItwbPyAcvJ
+  stripe_customer_id: cus_79ZU2mLycWhs6c
+  vendor: one
+  plan: rewards_monthly
+  coupon: show_discount_monthly
+  status: 1
+  current_period_end: <%= Time.now %>
+
+canceled:
+  stripe_subscription_id: sub_83JcItwbPyAcvJ
+  stripe_customer_id: cus_79ZU2mLycWhs6c
+  vendor: one
+  plan: rewards_monthly
+  coupon: show_discount_monthly
+  status: 3
+  canceled_at: 2016-03-09 11:37:58
+
+past_due:
+  stripe_subscription_id: sub_83JcItwbPyAcvJ
+  stripe_customer_id: cus_79ZU2mLycWhs6c
+  vendor: weddings
+  plan: rewards_monthly
+  coupon: show_discount_monthly
+  status: 2
+  current_period_end: <%= Time.now %>

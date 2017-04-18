@@ -1,0 +1,11 @@
+= content_for(:title, "Offers for ".html_safe + link_to(@vendor.to_s, @vendor))
+
+%div= link_to 'Add offer', '#', class: 'toggle', data: {toggle: 'new_offer', hide: ''}
+= render(partial: 'form', object: Offer.new, as: 'offer')
+%br/
+%dl.accordion(data-accordion="")
+  - @offers.each do |offer|
+    %dd.accordion.navigation
+      %a= offer
+      .content
+        = render(partial: 'form', object: offer, as: 'offer')

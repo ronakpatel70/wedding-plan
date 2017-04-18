@@ -1,0 +1,22 @@
+= content_for(:title, 'Prizes')
+= content_for(:actions, action_list(:new))
+= content_for(:count, @prizes.length.to_s)
+
+%table.sort
+  %thead
+    %tr
+      %th(width="300") Name
+      %th(width="300") Vendor
+      %th Type
+      %th(width="115" data-sort-as="int") Value
+      %th(width="90" data-sort-as="int") Quantity
+      %th Status
+  %tbody
+    - @prizes.each do |prize|
+      %tr.link(data-href="#{prize_path(prize)}")
+        %td= prize
+        %td= prize.vendor
+        %td= prize.type
+        %td= number_to_currency(prize.value / 100, precision: 0)
+        %td= prize.quantity
+        %td= prize.status

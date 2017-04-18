@@ -1,0 +1,35 @@
+- show_errors_for(@payment)
+
+= form_for(@payable ? [@payable, @payment] : [@payer, @payment], builder: FormBuilder) do |f|
+  %p
+    %label For
+    = link_to(@payment.payer, @payment.payer)
+    %br
+    - if @payment.payable
+      = link_to(@payment.payable, @payment.payable)
+
+  = f.text_group :amount, value: number_to_currency(@payment.amount / 100.0), disabled: !@editable
+  - if @payment.refundable? || @payment.refund_amount > 0
+    = f.text_group :refund_amount, value: number_to_currency(@payment.refund_amount / 100), col: 'end', disabled: @payment.refund_amount == @payment.amount
+
+  = f.text_group :description
+
+  = f.select_group :method, Payment.methods.keys, {selected: @payment.new_record? ? @payment.payable&.payment_method : @payment.method}, disabled: !@editable
+  - if @payment.payer.cards.empty?
+    %p No card on file.
+  - else
+    = f.select_group :card_id, @payment.payer.cards.map {|c| ["#{c.brand} #{c.last4} - #{c.expiry.to_s(:expiry)}", c.id]}, {include_blank: true}, disabled: !@editable
+
+  - if @editable
+    = f.date_group(:scheduled_for, start_year: Date.today.year, include_blank: true)
+
+  %button.button#save Save
+  - if @editable && !@payment.new_record?
+    = link_to('Pay now', pay_payment_path(@payment), class: 'button-link success', method: 'post')
+    = link_to('Delete', @payment, class: 'button-link alert', method: 'delete', data: {confirm: 'Delete this payment?'})
+
+:javascript
+  document.getElementById('new_payment').addEventListener('submit', function(e) {
+    if (document.getElementById('payment_method').value == 'card' && document.getElementById('payment_scheduled_for_1i').value == '')
+      confirm('Charge card now?') || e.preventDefault();
+  });

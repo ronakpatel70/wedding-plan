@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %meta(content="text/html; charset=UTF-8" http-equiv="Content-Type")
+    = render 'head'
+  %body
+    = render 'nav'
+    %main
+      %div{:class => @layout_container || 'container'}
+        %header.page-header
+          - if content_for?(:image)
+            .title-image.left= yield(:image)
+          %h3.left= @page_title || yield(:title)
+          - if content_for?(:count)
+            .count.left= yield(:count)
+          - if content_for?(:actions)
+            %ul.actions.left= yield(:actions)
+        - if content_for?(:aside)
+          %aside= yield(:aside)
+        %section
+          = yield

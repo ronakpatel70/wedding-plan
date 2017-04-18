@@ -1,0 +1,18 @@
+- show_errors_for(@position)
+
+= form_for(@position, builder: FormBuilder) do |f|
+  .row
+    .small-4.columns
+      .row= f.text_col(:name, 12)
+      .row= f.text_col(:short_description, 12)
+      .row= f.text_col(:quantity, 6)
+      .row
+        = f.text_col(:default_start, 6, placeholder: '-1:30')
+        = f.text_col(:default_end, 6, placeholder: '+4:00', col: 'end')
+      .row= f.switch_col(:active, 6)
+      .row
+        .small-12.columns
+          %button.button Save
+          = delete_link(@position)
+    .small-8.columns.end
+      .row= f.editor_col(:description, 12, rows: 15)

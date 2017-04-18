@@ -1,0 +1,4 @@
+#,Name,Prizes,Value,Winner,Email
+<% @packages.each do |pkg| %>
+<%= pkg.ribbon %>,<%= pkg.to_s.escape_csv %>,<%= pkg.prizes.map(&:name).join(' + ').escape_csv %>,<%= number_to_currency(pkg.prizes.map(&:value).reduce(0, &:+) / 100, precision: 0).escape_csv %>,<%= pkg.winner %>,<%= pkg.winner&.email&.escape_csv %>
+<% end %>

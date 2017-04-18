@@ -1,0 +1,20 @@
+= content_for(:title, 'Packages')
+= content_for(:actions, action_list(:new, :download))
+= content_for(:count, "#{@packages.length.to_s} (#{@packages.where.not(winner: nil).count} redeemed)")
+
+%table.sort
+  %thead
+    %tr
+      %th(width="50" data-sort-as="int") #
+      %th Name
+      %th(width="120") Type
+      %th(width="140" data-sort-as="int" data-sort-reverse) Value
+      %th Winner
+  %tbody
+    - @packages.each do |package|
+      %tr.link{data: {href: package_path(package)}}
+        %td= package.ribbon
+        %td= link_to(package.name, package)
+        %td= package.type
+        %td= number_to_currency(package.prizes.map(&:value).reduce(0, &:+) / 100, precision: 0)
+        %td= link_to(package.winner, package.winner) if package.winner

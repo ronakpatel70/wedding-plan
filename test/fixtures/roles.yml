@@ -1,0 +1,11 @@
+one:
+  user: dylan
+  type: 0
+
+three:
+  user: megan
+  type: 1
+
+four:
+  user: locked_admin
+  type: 0

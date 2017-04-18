@@ -1,0 +1,23 @@
+one:
+  street: 590 Shagbark St
+  city: Windsor
+  state: CA
+  zip: 95492
+
+two:
+  street: 3201 Cleveland Ave
+  city: Santa Rosa
+  state: CA
+  zip: 95403
+
+wfc:
+  street: A St
+  city: Santa Rosa
+  state: CA
+  zip: 95403
+
+home:
+  street: 590 Shagbark St
+  city: Windsor
+  state: CA
+  zip: 95492

@@ -1,0 +1,72 @@
+table {
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+
+  // Default header style
+  thead {
+    border-bottom: 2px solid $smoke;
+    tr th {
+      cursor: default;
+    }
+  }
+
+  // Sortable header style
+  &.sort {
+    thead tr th:not([data-sort-none]) {
+      cursor: pointer;
+      &.asc, &.desc {
+        font-weight: 400;
+        &:not(.noarr):after {
+          border: inset 5px;
+          content: "";
+          position: relative;
+          left: 10px;
+        }
+      }
+      &.asc:not(.noarr):after {border-color: transparent transparent $aluminum transparent; border-bottom-style: solid; top: -10px;}
+      &.desc:not(.noarr):after {border-color: $aluminum transparent transparent transparent; border-top-style: solid; top: 11px;}
+    }
+    // For a table with attribute data-alt="n", hide columns > n
+    @for $i from 3 through 7 {
+      &[data-cycle-col="#{$i}"] {
+        thead tr th:nth-child(n + #{$i}), tbody tr td:nth-child(n + #{$i}) {display: none;}
+      }
+    }
+    // For a table with attribute data-cycle="n", show column n
+    @for $k from 3 through 10 {
+      &[data-cycle-cur="#{$k}"] {
+        tbody tr td:nth-child(#{$k}), thead tr th:nth-child(#{$k}) {display: table-cell;}
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $smoke;
+      &.link {
+        cursor: default;
+        &:hover {background-color: scale-color($info-color, $lightness: 90%)}
+      }
+      &.fold {
+        cursor: default;
+        td {text-align: center;}
+        &:hover {background-color: scale-color($warning-color, $lightness: 90%)}
+      }
+      &.folded {display: none;}
+      td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        &.action {
+          padding-right: 40px;
+          text-align: right;
+          a {display: none;}
+        }
+      }
+      &:hover {
+        td.action > * {display: inline;}
+      }
+    }
+  }
+}

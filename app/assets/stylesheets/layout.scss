@@ -1,0 +1,39 @@
+main {
+  padding-top: 1.125rem;
+}
+
+// Fixed-width horizontally-centered containers
+[class|=container] {
+  margin: 0 auto;
+  width: 990px;
+  &.container-small {
+    width: 400px;
+  }
+  &.container-medium {
+    width: 650px;
+  }
+  &.container-large {
+    width: 800px;
+  }
+  .columns:first-child {padding-left: 0;}
+  .columns:last-child {padding-right: 0;}
+}
+
+header + aside, header + aside + section {
+  margin-top: 6px;
+}
+
+aside {
+  width: 180px;
+  margin-right: 10px;
+  float: left;
+  & + section {
+    float: left;
+    padding-left: 10px;
+    width: 800px;
+  }
+  .aside-link {
+    padding: 2px 10px 2px 0;
+    width: 100%;
+  }
+}

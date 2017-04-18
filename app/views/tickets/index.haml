@@ -1,0 +1,39 @@
+= content_for(:title, params[:free] ? 'Passes' : 'Tickets')
+= content_for(:actions, params[:free] ? action_list(:new, :download, :link) : action_list(:new, :download))
+= content_for(:count, "#{@tickets.sum(:quantity)}")
+
+%table.filterable
+  %thead
+    %tr
+      %th(width="250") User
+      %th(width="125") Quantity
+      %th(width="250") Date
+      - if params[:free]
+        %th(width="200") Vendor
+        %th(width="125")
+      - else
+        %th(width="125") Method
+        %th(width="200")
+  %tbody
+    - @tickets.each do |t|
+      %tr(class="#{'hide' if !t.free && !t.paid}" data-filter-class='#{'refunded' if !t.free && !t.paid}')
+        %td= link_to t.user, t.user
+        %td
+          = t.quantity
+          - if t.payment
+            (#{number_to_currency t.payment.amount / 100})
+        %td= t.created_at
+        - if params[:free]
+          %td= t.vendor || '--'
+          %td.action
+            %a(href="#{ticket_path(t)}" data-confirm="Are you sure you want to delete this free pass?" data-method="delete") Delete
+        - else
+          %td
+            - if t.payment&.card != nil
+              = t.payment.card.brand
+              %small.text-info= t.payment.card.last4
+            - else
+              = t.payment.method
+          %td.action
+            - if t.paid
+              %a(href="#{ticket_path(t)}" data-confirm="Are you sure you want to refund this ticket?" data-method="delete") Refund

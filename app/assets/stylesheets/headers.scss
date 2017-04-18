@@ -1,0 +1,44 @@
+header {
+  height: 51px;
+  width: 100%;
+  .actions {
+    margin-top: 7.5px;
+    .action {
+      margin-left: 1.275rem;
+      margin-bottom: 0;
+      padding-top: 3px;
+      float: left;
+    }
+  }
+  .count {
+    color: $aluminum;
+    margin-left: 0.4rem;
+    margin-top: 14px;
+  }
+  .title-image {
+    margin-right: 8px;
+    img {
+      border-radius: 50%;
+      height: 44px;
+      width: 44px;
+    }
+  }
+  .tabs {
+    margin-top: 10px;
+    > .tab {
+      font-size: 14px;
+      a {
+        color: $info-color;
+      }
+      &.active {
+        border-bottom: 2px solid $primary-color;
+        a {
+          color: $primary-color;
+        }
+      }
+      &:hover {
+        a {color: $primary-color;}
+      }
+    }
+  }
+}

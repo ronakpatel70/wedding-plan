@@ -1,0 +1,17 @@
+one:
+  vendor: one
+  value: 100
+  type: 1
+  name: MyString
+  rules: MyText
+  combo: false
+  tier: 1
+
+two:
+  vendor: one
+  value: 100
+  type: 1
+  name: MyString
+  rules: MyText
+  combo: false
+  tier: 2

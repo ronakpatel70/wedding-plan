@@ -1,0 +1,102 @@
+// scss-lint:disable ImportantRule, NestingDepth, SelectorDepth
+.turbolinks-progress-bar {
+  background-color: $faded-white;
+  height: 2px;
+}
+
+.top-bar {
+  .home {
+    height: 45px;
+    padding-top: 10px !important;
+    img, svg {
+      display: block;
+      width: 32px;
+    }
+  }
+	.search {
+		background-color: $topbar-link-bg-hover;
+		position: relative;
+		height: 45px;
+		width: 44px;
+		transition: width 500ms ease;
+		.search-field {
+			background-color: transparent;
+			border: none;
+			box-shadow: none;
+			color: white;
+			display: none;
+			float: left;
+			font-weight: 300;
+			height: 45px;
+			top: 0;
+			width: 196px;
+			&::-webkit-input-placeholder {
+				color: lighten($topbar-bg-color, 15%);
+			}
+		}
+		a#open-search {
+  		fill: white;
+			height: 45px;
+			position: absolute;
+			right: 0;
+			width: 44px;
+			z-index: 1000;
+			transform: scaleX(-1);
+			padding-top: 3px;
+			svg {
+  			height: 14px;
+  			width: 14px;
+			}
+		}
+		.results {
+			clip: auto;
+			top: 45px;
+			a {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        &.selected {
+        	background-color: $topbar-link-bg-hover !important;
+        }
+			}
+		}
+		&.open {
+			width: 240px;
+			.search-field {
+				display: block;
+			}
+			a#open-search {
+				background-color: $topbar-link-bg-hover !important;
+			}
+		}
+	}
+}
+
+.sub-nav {
+	background-color: $white-smoke;
+	margin-bottom: 0;
+	padding: 10px 0 10px 0;
+	width: 100%;
+	.button {
+    font-size: 0.75rem;
+    margin: -1px 0 -1px 0;
+    padding: 0.1875rem 1rem;
+	}
+	dd.right {
+  	margin-right: 1rem;
+	}
+	li {
+  	float: none;
+  	margin: 0;
+  	a, a:hover, span {
+    	display: block;
+      padding: 0.5rem;
+      color: #555555;
+  	}
+  	&.disabled {
+    	background-color: transparent;
+      a, a:hover, span {
+        color: $iron;
+      }
+  	}
+	}
+}

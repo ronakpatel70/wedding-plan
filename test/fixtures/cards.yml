@@ -1,0 +1,59 @@
+one:
+  owner: dylan (User)
+  stripe_card_id: card_16vGqV2RDM5ZUbA00snzKzqd
+  brand: Visa
+  funding: debit
+  expiry: 2015-10-12
+  last4: 1111
+  name: Dylan Waits
+  status: 1
+
+two:
+  owner: dylan (User)
+  stripe_card_id: card_16vGqV2RDM5ZUbA00snzKzqf
+  brand: American Express
+  funding: credit
+  expiry: 2019-11-11
+  last4: 4000
+  name: Dylan Waits
+  status: 1
+
+wcb_one:
+  owner: one (Vendor)
+  stripe_card_id: card_16vGqV2RDM5ZUbA00snzKzqd
+  brand: Visa
+  funding: debit
+  expiry: 2015-10-12
+  last4: 4242
+  name: Wine Country Bride
+  status: 1
+
+wcb_two:
+  owner: one (Vendor)
+  stripe_card_id: card_16vGqV2RDM5ZUbA00snzKzqf
+  brand: Discover
+  funding: credit
+  expiry: 2019-03-22
+  last4: 4242
+  name: Wine Country Bride
+  status: 1
+
+premier:
+  owner: two (Vendor)
+  stripe_card_id: card_16vGqV2RDM5ZUbA00snzKzqf
+  brand: Visa
+  funding: credit
+  expiry: 2019-03-22
+  last4: 4242
+  name: Premier Productions
+  status: 0
+
+megan:
+  owner: megan (User)
+  stripe_card_id: card_16vGqV2RDM5ZUbA00snzKzqf
+  brand: Discover
+  funding: credit
+  expiry: 2019-03-22
+  last4: 4242
+  name: Wine Country Bride
+  status: 1

@@ -1,0 +1,23 @@
+.row
+  .small-2.columns.user-bank
+    %label Available Staff
+    %ul
+      - @users.each do |user|
+        %li
+          = badge user, "radius secondary hover user user-#{user.id}", id: "user-#{user.id}", data: {user_id: user.id}
+    #trash.drop-zone.hide= icon(:trash_selected)
+  .small-10.columns
+    .row
+      - @times.each do |time|
+        .small-3.columns(data-time="#{time.iso8601}")
+          %label= time.to_s :us_time
+          - @positions.select { |p| p.relative_start(@current_show.start).between?(time, time + 179.minutes) || p.relative_end(@current_show.start).between?(time + 90.minutes, time + 180.minutes) }.each do |position|
+            .panel.position.drop-zone(data-id="#{position.id}" data-qty-filled="#{@shifts[position.id].size}" data-qty-needed="#{position.quantity}" data-second-shift="#{true if position.relative_end(@current_show.start).between?(time + 90.minutes, time + 180.minutes)}")
+              %div
+                %label.name= position
+              - @shifts[position.id].select { |s| s.start_time.between?(time, time + 179.minutes) }.each do |shift|
+                = badge shift.user, "radius hover info user user-#{shift.user.id}", id: "shift-#{shift.id}", data: {url: shift_path(shift, :json), user_id: shift.user.id}
+
+= set_var 'shifts_path', shifts_url(:json)
+:javascript
+  ShiftsController();

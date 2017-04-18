@@ -1,0 +1,14 @@
+- show_errors_for(@ticket)
+
+= form_for(@ticket, url: params[:free] ? passes_path : tickets_path, builder: FormBuilder) do |f|
+  - if params[:free]
+    = f.hidden_field :free, value: true
+  = static_group 'Show', @current_show.date
+  = f.text_group :user_id
+  = f.text_group :quantity
+  - unless params[:free]
+    = f.select_group :payment_method, Payment.methods.keys
+  %button.button Save
+
+:javascript
+  new TokenField(id('ticket_user_id'), '#{search_path(:users, :json)}')

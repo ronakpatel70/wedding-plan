@@ -1,0 +1,30 @@
+- set_title('Vendors')
+- content_for(:actions, action_list(:new_group))
+- content_for(:count, @count.to_s)
+
+%div
+  = filter_buttons(:vendors_path, rewards_status: Vendor.rewards_statuses.keys,
+    show: Show.fresh.pluck(:id, :start), status: ['lead'] + Vendor::SHOW_STATUSES,
+    industry: Vendor.industries.keys)
+
+%table.sort
+  %thead
+    %tr
+      %th(width="280") Business
+      %th(width="140") Industry
+      %th(width="180") Primary Contact
+      %th(data-sort-as="custom") Rewards Status
+      %th.desc(data-sort-as="custom" data-sort-reverse) Date Added
+  %tbody
+    - @vendors.each do |vendor|
+      %tr.link(data-href="#{vendor_path(vendor)}")
+        %td= link_to(vendor, vendor)
+        %td= vendor.industry.titleize
+        %td= link_to(vendor.primary, vendor.primary) if vendor.primary
+        %td
+          - if vendor.applied?
+            %i.octicon.octicon-primitive-dot.warning
+          - elsif vendor.approved?
+            %i.octicon.octicon-primitive-dot.success
+          = vendor.rewards_status.humanize
+        %td(data-sort-by="#{vendor.created_at.to_i}")= vendor.created_at

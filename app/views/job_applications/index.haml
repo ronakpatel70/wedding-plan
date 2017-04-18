@@ -1,0 +1,24 @@
+= content_for(:title, 'Job Applications')
+= content_for(:actions, action_list(:new))
+= content_for(:count, @job_apps.length.to_s)
+
+%table.sort(data-cycle-col="4")
+  %thead
+    %tr
+      %th.asc(width="225") User
+      %th(width="175") Status
+      %th(width="200" data-sort-as="custom") Requested Time
+      %th(width="400") Other Requests
+      %th Phone
+      %th Bank
+  %tbody
+    - @job_apps.each do |job_app|
+      %tr.link{"data-href" => job_application_path(job_app)}
+        %td= job_app.user
+        %td= job_app.status
+        %td{'data-sort-by' => job_app.requested_start ? Time.parse(job_app.requested_start).to_i : "\\"}
+          - if job_app.requested_start
+            #{job_app.requested_start} - #{job_app.requested_end}
+        %td= job_app.requests
+        %td= number_to_phone(job_app.user.phone, area_code: true)
+        %td= link_to(job_app.user.stripe_recipient_id, "//dashboard.stripe.com/recipients/#{job_app.user.stripe_recipient_id}") if job_app.user.stripe_recipient_id

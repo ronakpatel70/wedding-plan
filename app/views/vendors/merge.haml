@@ -1,0 +1,25 @@
+- set_container(:medium)
+- set_title("Merge Vendors")
+- show_errors_for(@vendor)
+
+= form_tag(merge_vendor_path(@vendor)) do
+  .row
+    - {base: @vendor, duplicate: nil}.each do |k, vendor|
+      .small-6.columns
+        %div
+          = label("#{k}_vendor_id", "#{k} vendor")
+          = text_field_tag("#{k}_vendor_id", vendor, disabled: !!vendor)
+        .fields{:id => "#{k}_vendor_fields", :hidden => !vendor}
+          = static_group("Industry", vendor&.industry, id: "#{k}_vendor_industry", class: "truncate")
+          = static_group("Rewards Status", vendor&.rewards_status, id: "#{k}_vendor_rewards_status", class: "truncate")
+          = static_group("Public Email", vendor&.email, id: "#{k}_vendor_email", class: "truncate")
+          = static_group("Public Phone", vendor&.phone, id: "#{k}_vendor_phone", class: "truncate")
+          = static_group("Cell Phone", vendor&.cell_phone, id: "#{k}_vendor_cell_phone", class: "truncate")
+          = static_group("Website", vendor&.website, id: "#{k}_vendor_website", class: "truncate")
+          = static_group("Facebook", vendor&.facebook, id: "#{k}_vendor_facebook", class: "truncate")
+  %div
+    %button#submit.button.success.radius{:disabled => true} Merge
+
+:javascript
+  let controller = new MergeController();
+  new TokenField(id("duplicate_vendor_id"), "#{search_path(:vendors, :json)}", {}, controller.tokenFieldCallback);

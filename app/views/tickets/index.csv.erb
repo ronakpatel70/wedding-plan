@@ -1,0 +1,8 @@
+User,Email,Quantity,Amount Paid,Method,Date
+<% @tickets.each do |ticket| %>
+<% if ticket.free %>
+<%= ticket.user.to_s.escape_csv %>,<%= ticket.user.email.escape_csv %>,<%= ticket.quantity %>,$0,free,<%= ticket.created_at %>
+<% else %>
+<%= ticket.user.to_s.escape_csv %>,<%= ticket.user.email.escape_csv %>,<%= ticket.quantity %>,<%= number_to_currency(ticket.payment.amount/100) %>,<%= ticket.payment.method %>,<%= ticket.created_at %>
+<% end %>
+<% end %>

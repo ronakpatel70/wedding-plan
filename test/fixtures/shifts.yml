@@ -1,0 +1,28 @@
+one:
+  user: dylan
+  position: door_host
+  show: two
+  start_time: 2015-10-29 13:00:00
+  end_time: 2015-10-29 14:30:00
+  in_time: 2015-10-29 13:00:00
+  out_time: 2015-10-29 14:50:00
+  status: 1
+  notes: none
+
+two:
+  user: megan
+  position: cashier
+  show: two
+  start_time: 2015-10-29 13:30:00
+  end_time: 2015-10-29 17:00:00
+  status: 1
+  notes: none
+
+two:
+  user: megan
+  position: cashier
+  show: three
+  start_time: 2015-10-29 13:30:00
+  end_time: 2015-10-29 17:00:00
+  status: 1
+  notes: none

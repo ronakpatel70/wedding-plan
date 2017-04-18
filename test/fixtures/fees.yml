@@ -1,0 +1,19 @@
+one:
+  booth: one
+  amount: 5000
+  description: Late Fee
+
+two:
+  booth: one
+  amount: -10000
+  description: Discount
+
+three:
+  booth: bag_only
+  amount: 100000000
+  description: One million dollars
+
+four:
+  booth: no_amenities
+  amount: -100
+  description: One dollar off

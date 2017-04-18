@@ -1,0 +1,46 @@
+- show_errors_for(@card)
+
+= static_group('Owner', link_to(@card.owner, @card.owner))
+
+= form_for([@owner, @card], builder: FormBuilder) do |f|
+  = hidden_field_tag('card[stripe_token]')
+  .row
+    .small-8.columns
+      = label(:card, :number)
+      = password_field_tag(nil, nil, data: {stripe: "number"}, maxlength: 16)
+    .small-4.columns
+      = label(:card, :cvv, 'CVV')
+      = text_field_tag(nil, nil, data: {stripe: "cvc"}, maxlength: 4)
+  .row
+    .small-7.columns
+      = label(:card, :exp_month)
+      = select_month(nil, {}, data: {stripe: "exp_month"}, name: nil)
+    .small-5.columns.end
+      = label(:card, :exp_year)
+      = select_year(nil, {start_year: Date.today.year, end_year: Date.today.year + 5}, {data: {stripe: "exp_year"}, name: nil})
+  .row
+    .small-6.columns
+      = label(:card, :address_zip, "ZIP code")
+      = text_field_tag(nil, nil, data: {stripe: "address_zip"}, maxlength: 5)
+  %button.button.submit Save
+
+:javascript
+  document.getElementById('new_card').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var form = this;
+    var btn = form.getElementsByClassName('submit')[0];
+    btn.disabled = true;
+    Status.set('Saving...', 'warning');
+
+    Stripe.card.createToken(form, function(status, response) {
+      if (status != 200) {
+        Status.set(response.error.message, 'alert');
+        btn.disabled = false;
+        return;
+      }
+
+      console.log(response);
+      document.getElementById('card_stripe_token').value = response.id;
+      form.submit();
+    });
+  });

@@ -1,0 +1,7 @@
+one:
+  stripe_transfer_id: tr_17WC0K2RDM5ZUbA0aTyWs6jB
+  user: dylan
+  amount: 100
+  description: Wedding Expo staff payment
+  stripe_recipient_id: rp_178Imb2RDM5ZUbA0EqWPFWa5
+  status: paid

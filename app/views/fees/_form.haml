@@ -1,0 +1,8 @@
+- show_errors_for(@fee)
+
+= form_for([@fee.booth, @fee], builder: FormBuilder) do |f|
+  = static_group 'Vendor', link_to(@fee.booth.vendor, @fee.booth.vendor)
+  = static_group 'Booth', link_to(@fee.booth, @fee.booth)
+  = f.text_group :amount
+  = f.text_group :description
+  %button.button#save Save

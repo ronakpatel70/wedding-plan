@@ -1,0 +1,45 @@
+dylan:
+  email: dylan@waits.io
+  password_digest: $2a$10$vTjJljpyxTuGMspIKBTd3.TMEXV.1U7GETkqh0coI5vKX3X31Ua9y
+  first_name: Dylan
+  last_name: Waits
+  phone: 7075272685
+  event_role: groom
+  events: [one]
+  receive_email: true
+  receive_sms: true
+  stripe_customer_id: cus_79ZU2mLycWhs6c
+  stripe_recipient_id: rp_000000
+  default_card: one
+
+megan:
+  address: home
+  email: megan@waits.io
+  password_digest:
+  first_name: Megan
+  last_name: Waits
+  phone: 7078360339
+  event_role: bride
+  events: [two]
+  receive_email: false
+  receive_sms: false
+  stripe_customer_id:
+  stripe_recipient_id:
+  shows: [two]
+
+locked_admin:
+  email: locked@example.com
+  password_digest: $2a$10$vTjJljpyxTuGMspIKBTd3.TMEXV.1U7GETkqh0coI5vKX3X31Ua9y
+  first_name: Locked
+  last_name: User
+  receive_email: false
+  receive_sms: false
+  failed_attempts: 7
+  locked_at: <%= DateTime.now.utc %>
+
+adrian:
+  email: adrian@example.com
+  first_name: Adrian
+  last_name: Person
+  receive_email: false
+  receive_sms: false

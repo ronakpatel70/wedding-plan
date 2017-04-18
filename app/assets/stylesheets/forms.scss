@@ -1,0 +1,89 @@
+select.year {
+  width: calc(35% - 5px);
+}
+
+select.month {
+  width: calc(40% - 4px);
+}
+
+select.day {
+  width: calc(25%);
+}
+
+select.hour {
+  width: calc(50% - 7px);
+}
+
+select.minute {
+  width: calc(50% - 7px);
+}
+
+.form-group {
+  position: relative;
+}
+
+.half {
+  float: left;
+  width: 50%;
+}
+
+input[type="checkbox"] ~ label {
+  margin-left: 4px;
+}
+
+input.skinny, select.skinny {
+  background-color: transparent;
+  border: 1px solid $smoke;
+  height: 2rem;
+  margin: 0 0 0 0;
+  padding-top: 0.4rem;
+}
+
+.token-field {
+  position: relative;
+  .clear {
+    padding: 3px 6px 4px;
+  }
+  &.multiple {overflow-x: scroll;}
+  & ~ .f-dropdown {
+    top: 60px;
+    left: 10px;
+    width: 100%;
+  }
+  .token-container {
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+  }
+  .token {
+    background-color: $snow;
+    border: 1px solid $iron;
+    border-radius: 3px;
+    color: $steel;
+    cursor: default;
+    display: inline-block;
+    font-size: $input-font-size;
+    margin-right: 5px;
+    padding: 2px 22px 2px 6px;
+    position: relative;
+    .clear {
+      background: transparent;
+      padding-right: 0;
+      padding-top: 2px;
+    }
+  }
+}
+
+.markdown-editor {
+  .preview {
+    border: 1px solid $iron;
+    iframe {
+      border: none;
+      height: 420px;
+      overflow: scroll;
+      width: 100%;
+    }
+  }
+}

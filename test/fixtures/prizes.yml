@@ -1,0 +1,31 @@
+one:
+  show: two
+  vendor: one
+  name: Cheap Prize
+  quantity: 1
+  value: 1000
+  rules: MyText
+  type: 1
+  status: 1
+  coordinate_id:
+
+two:
+  show: two
+  vendor: one
+  name: A Prize
+  quantity: 1
+  value: 1000
+  rules: MyText
+  type: 1
+  status: 1
+  coordinate_id:
+
+three:
+  show: three
+  vendor: one
+  name: Another Prize
+  quantity: 1
+  value: 1000
+  rules: MyText
+  type: 1
+  status: 1

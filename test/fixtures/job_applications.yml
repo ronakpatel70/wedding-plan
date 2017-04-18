@@ -1,0 +1,15 @@
+one:
+  user: dylan
+  show: one
+  status: 1
+  requests: none
+  requested_start: 7:30
+  requested_end: 16:30
+
+two:
+  user: megan
+  show: two
+  status: 0
+  requests: none
+  requested_start: 10:30
+  requested_end: 19:30

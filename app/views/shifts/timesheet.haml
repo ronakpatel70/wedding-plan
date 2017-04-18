@@ -1,0 +1,25 @@
+= content_for(:title, "Timesheet")
+
+%div
+  .user-row.ruler
+    .shifts
+      %label.rule.inline.right Total
+  - @users.each do |user|
+    .user-row
+      .user-block.middle
+        %label= user.to_s
+      .shifts
+        - user.shifts.each do |shift|
+          .timecard{:data => {:url => shift_path(shift, :json), :time_worked => shift.time_worked}, :title => shift.position}
+            = text_field_tag("shift[in_time]", shift.in_time&.to_s(:us_time), maxlength: 7)
+            = text_field_tag("shift[out_time]", shift.out_time&.to_s(:us_time), maxlength: 7)
+        .transfer
+          - if @user_totals[user.id]
+            = icon(:checkmark_selected, title: "Paid #{number_to_currency(@user_totals[user.id] / 100.0)}", class: "success")
+          - elsif user.stripe_recipient_id
+            = link_to(icon(:document_plus), new_transfer_path(user_id: user.id, show_id: @current_show.id), class: "icon", title: "Create transfer")
+        .total
+          %label= user.shifts.inject(0) { |sum, shift| sum += shift.time_worked }.round(1)
+
+:javascript
+  TimesheetController();

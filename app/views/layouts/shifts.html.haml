@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %meta(content="text/html; charset=UTF-8" http-equiv="Content-Type")/
+    = render 'head'
+  %body
+    = render 'nav'
+    %main
+      .row
+        .small-12.columns
+          %header.header(style="height: 51px")
+            %h3.inline.left Shifts
+            %ul.tabs.inline.inline-list.left
+              - [['Overview', shifts_path], ['Schedule', "#{shifts_path}/schedule"], ['Timesheet', "#{shifts_path}/timesheet"]].each do |t|
+                %li.tab(class="#{'active' if request.path == t[1]}")= link_to(t[0], t[1])
+          - if alert
+            = alert_box alert, 'alert'
+          - if flash[:warning]
+            = alert_box flash[:warning], 'warning'
+          - if notice
+            = alert_box notice, 'success'
+          = yield

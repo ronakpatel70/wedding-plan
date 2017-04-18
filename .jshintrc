@@ -1,0 +1,18 @@
+{
+  // enforcing options
+  "browser": true,
+  "eqeqeq": true,
+  // "esversion": 6,
+  "latedef": "nofunc", // allow hoisting functions
+  "maxdepth": 2,
+  "noarg": true,
+  "nonbsp": true,
+  "nonew": true,
+  "notypeof": true,
+  "shadow": "outer",
+  "strict": true,
+  "singleGroups": true,
+  "unused": "vars",
+  "validthis": true,
+  "-W086": true // allow switch fall-through
+}

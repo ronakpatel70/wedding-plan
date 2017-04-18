@@ -1,0 +1,10 @@
+- content_for(:title, 'Edit User')
+- content_for(:actions) do
+  %li.action.inline= mail_to(@user.email, icon(:envelope), class: "icon", title: "Send email")
+  %li.action.inline= link_to(icon(:printer), request.path + ".pdf", class: "icon", title: "Print prize labels")
+  %li.action.inline
+    %a.icon.dropdown(data-dropdown="more-dropdown")= icon(:more)
+    %ul.f-dropdown.right-arrow#more-dropdown(data-dropdown-content="")
+      %li= link_to("Sign in as this user", login_user_path(@user), target: "_blank")
+
+= render 'form'

@@ -1,0 +1,27 @@
+.row
+  .small-6.columns
+    %label Vendor
+    %p= link_to(@booth.vendor, @booth.vendor)
+  .small-3.columns
+    %label Status
+    %p= @booth.status.humanize
+  .small-3.columns
+    %label Size
+    - if @booth.size
+      %p #{@booth.size} #{Config.booths[@booth.size][:title]}
+    - else
+      %p None
+.row
+  .small-3.columns
+    %label Add-ons
+    %ul
+      - @booth.add_ons.order(:type).each do |add_on|
+        %li= add_on
+      - @booth.industries.each do |ind|
+        %li Industry (#{ind.humanize.downcase})
+  .small-3.columns
+    %label Sign
+    %p= @booth.sign ? link_to(@booth.sign, @booth.sign, title: @booth.sign.text) : 'No'
+  .small-6.columns.end
+    %label Requests
+    %p= @booth.requests

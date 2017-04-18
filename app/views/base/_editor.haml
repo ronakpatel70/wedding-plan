@@ -1,0 +1,16 @@
+%strong= method.to_s.titleize
+%ul.inline-list(style="margin-bottom: 0")
+  %li
+    %label
+      %a.markdown-editor-tab-link(data-tab="edit") Edit
+  %li
+    %label
+      %a.markdown-editor-tab-link(data-tab="preview") Preview
+  %li.right
+    %label
+      %a(href="http://commonmark.org/help/" target="_blank") Markdown Help
+.editor-body
+  %div.tab.edit
+    = form.text_area(method, rows: 12, class: 'markdown-field')
+  %div.tab.preview.hide
+    %iframe(sandbox="")

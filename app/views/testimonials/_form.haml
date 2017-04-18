@@ -1,0 +1,13 @@
+= form_for((testimonial.new_record? ? [@vendor, testimonial] : testimonial), builder: FormBuilder, html: {class: ('hide' if testimonial.new_record?)}) do |f|
+  %h4 New testimonial
+  .row
+    = f.text_col :author, 5
+  .row
+    = f.text_area_col :quote, 6, rows: 3
+  .row
+    .small-5.columns
+      %button.button Save
+      - if testimonial.persisted?
+        = link_to('Delete', testimonial, class: 'button-link alert', method: 'delete')
+      - else
+        %a.button.secondary(data-toggle="new_testimonial" href="") Cancel

@@ -1,0 +1,9 @@
+one:
+  vendor: one
+  quote: MyText
+  author: MyString
+
+two:
+  vendor: two
+  quote: MyText
+  author: MyString

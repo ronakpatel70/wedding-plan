@@ -1,0 +1,26 @@
+- content_for(:title, 'Attendees')
+- content_for(:actions) do
+  %li.action.inline= link_to(icon(:user_add), new_attendee_path, class: "icon", title: "New attendee")
+  %li.action.inline= link_to(icon(:printer), attendees_path(:pdf), class: "icon", title: "Print mailing labels")
+- content_for(:count, @users.length.to_s)
+
+%table
+  %thead
+    %tr
+      %th(width="200") Name
+      %th(width="250") Email
+      %th(width="170") Wedding Date
+      %th(width="75") Addr.
+      %th Tickets
+      %th Passes
+      %th Prizes
+  %tbody
+    - @users.each do |user|
+      %tr.link{'data-href' => attendee_path(user)}
+        %td= user
+        %td= user.email
+        %td= user.events.last
+        %td= icon(:checkmark_selected, class: 'success') if user.address
+        %td= @tickets[user.id]
+        %td= @passes[user.id]
+        %td= @prizes[user.id]

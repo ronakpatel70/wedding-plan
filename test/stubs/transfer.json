@@ -1,0 +1,34 @@
+{
+  "id": "tr_17WBMe2RDM5ZUbA0lZngO97G",
+  "object": "transfer",
+  "amount": 1100,
+  "amount_reversed": 0,
+  "application_fee": null,
+  "balance_transaction": "txn_16vx1V2RDM5ZUbA0D3bsQuU7",
+  "created": 1453493916,
+  "currency": "usd",
+  "date": 1453493916,
+  "description": "Transfer to test@example.com",
+  "destination": "ba_17WBMe2RDM5ZUbA0Me5ITA0T",
+  "failure_code": null,
+  "failure_message": null,
+  "livemode": false,
+  "metadata": {
+  },
+  "recipient": "rp_178Imb2RDM5ZUbA0EqWPFWa5",
+  "reversals": {
+    "object": "list",
+    "data": [
+
+    ],
+    "has_more": false,
+    "total_count": 0,
+    "url": "/v1/transfers/tr_17WBMe2RDM5ZUbA0lZngO97G/reversals"
+  },
+  "reversed": false,
+  "source_transaction": null,
+  "source_type": "card",
+  "statement_descriptor": null,
+  "status": "in_transit",
+  "type": "bank_account"
+}

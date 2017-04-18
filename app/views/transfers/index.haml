@@ -1,0 +1,17 @@
+= content_for(:title, 'Transfers')
+= content_for(:count, @transfers.length.to_s)
+
+%table.sort
+  %thead
+    %tr
+      %th(width="225") User
+      %th(width="175" data-sort-none) Amount
+      %th(width="200") Status
+      %th.desc(width="400" data-sort-as="custom") Created At
+  %tbody
+    - @transfers.each do |transfer|
+      %tr
+        %td= transfer.user
+        %td= number_to_currency(transfer.amount / 100.0)
+        %td= transfer.status
+        %td{'data-sort-by' => transfer.created_at.to_i}= transfer.created_at

@@ -1,0 +1,24 @@
+door_host:
+  name: Door Host
+  description: Do stuff
+  short_description: ...
+  quantity: 1
+  active: true
+  default_start: 10:00
+  default_end: 4:00
+
+cake_pull:
+  name: Cake Pull
+  description: Do stuff
+  short_description: ...
+  quantity: 1
+  active: false
+  default_start: 10:00
+  default_end: 4:00
+
+cashier:
+  name: Cashier
+  description: Do stuff
+  short_description: ...
+  quantity: 2
+  active: true

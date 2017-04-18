@@ -1,0 +1,59 @@
+.row
+  .small-3.columns
+    %label Total
+    %p= number_to_currency(@booth.total / 100.0)
+  .small-3.columns.end
+    %label Balance
+    %p= number_to_currency(@booth.balance / 100.0)
+  .small-3.columns.end
+    %label Method
+    %p= @booth.payment_method.humanize
+  .small-3.columns.end
+    %label Schedule
+    %p= @booth.payment_schedule.humanize
+.row
+  .small-6.columns
+    %label
+      Cost Breakdown
+      = link_to('+', new_booth_fee_path(@booth))
+    %table
+      %thead
+        %tr
+          %th(width="190") Item
+          %th(width="90") Cost
+          %th
+      %tbody
+        - @booth.line_items.each do |item|
+          %tr
+            %td= item[:title]
+            %td= number_to_currency(item[:price] / 100.0).chomp('.00')
+            %td.action
+              - if item[:id]
+                = link_to('Delete', fee_path(item[:id]), method: 'delete', data: { confirm: 'Are you sure you want to delete this line item?' })
+  .small-6.columns
+    %label
+      Payments
+      = link_to('+', new_booth_payment_path(@booth))
+    %table
+      %thead
+        %tr
+          %th Amount
+          %th Method
+          %th Status
+          %th Date
+      %tbody
+      - @payments.each do |payment|
+        %tr.link(data-href="#{payment_path(payment)}" title="#{payment.description}")
+          %td= number_to_currency(payment.amount / 100.0).chomp('.00')
+          %td
+            - if payment.card? && payment.card
+              = payment.card.brand.to_s.sub('American Express', 'Amex') + ' ' + payment.card.last4.to_s
+            - else
+              = payment.method.titleize
+          %td= payment.paid? && payment.refund_amount > 0 ? 'Partial Refund' : payment.status.titleize
+          %td.right
+            - if payment.scheduled?
+              %i.octicon.octicon-primitive-dot.warning(title="Created at #{payment.created_at}")
+              = payment.scheduled_for
+            - else
+              = payment.captured_at&.to_date

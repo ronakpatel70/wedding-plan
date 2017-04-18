@@ -1,0 +1,46 @@
+# Location
+section:
+  name: Section
+  values: [1, 2, 3, 4, 5, 6, 7]
+  price: 5000
+location:
+  name: Location
+  values: [100, 101, 102]
+  price: 10000
+
+# Amenities
+tables:
+  name: Table
+  quantities: [1, 2]
+  values: ["4'", "6'", "8'"]
+  default: table
+linen:
+  name: Linen
+sign:
+  name: Sign
+power:
+  name: Power
+  price: 2500
+height:
+  name: Extra height
+  price: 2500
+beverage:
+  name: Beverage
+  values: [wine, beer, liquor, soft_drinks, water]
+
+# Extras
+bag_promo:
+  name: Bag promo
+  price: 75000
+  combo_price: 25000
+labels:
+  name: Mailing labels
+  price: 4000
+# industry:
+#   name: Extra industry
+#   values: <%= Vendor.industries %>
+#   price: 35000
+vehicles:
+  name: Display vehicle
+  quantities: [1, 2, 3]
+  price: 10000

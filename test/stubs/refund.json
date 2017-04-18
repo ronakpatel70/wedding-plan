@@ -1,0 +1,13 @@
+{
+  "id": "re_14ner42RDM5ZUbA0jC1UKLt1",
+  "object": "refund",
+  "amount": 5000,
+  "balance_transaction": null,
+  "charge": "ch_14izfa2RDM5ZUbA07eezfF02",
+  "created": 1413329846,
+  "currency": "usd",
+  "metadata": {
+  },
+  "reason": null,
+  "receipt_number": null
+}

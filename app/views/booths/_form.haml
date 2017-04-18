@@ -1,0 +1,32 @@
+- show_errors_for(@booth)
+
+= form_for(@booth, builder: FormBuilder) do |f|
+  = f.hidden_field(:status)
+  .row
+    .small-7.columns
+      = f.text_group :vendor_id, spellcheck: false
+      .row
+        = f.select_col :size, 6, booth_sizes, include_blank: true
+        = f.fields_for(:coordinate, @booth.coordinate) do |coordinate_fields|
+          = coordinate_fields.select_col :section, 6, Config.sections.keys, include_blank: true
+      - unless @booth.new_record?
+        = f.select_group :sign_id, @booth.vendor.signs.map{ |s| [s.text, s.id] }, include_blank: true
+      = f.text_area_group :requests
+      .row
+        = f.select_col :payment_method, 6, Booth.payment_methods.keys
+        = f.select_col :payment_schedule, 6, Booth.payment_schedules.keys, col: 'end'
+      .row
+        = f.switch_col :leads_access, 4
+        = f.switch_col :visible, 4, col: 'end'
+        - if @booth.bag?
+          = f.switch_col :received_marketing, 4, col: 'end'
+
+  %button.button Save
+  - unless @booth.approved?
+    %button.button.success(onclick="document.getElementById('booth_status').value = 'approved';") Approve & Save
+  - unless @booth.denied?
+    %button.button.alert(onclick="document.getElementById('booth_status').value = 'denied';") Deny & Save
+  = delete_link(@booth)
+
+:javascript
+  new TokenField(id('booth_vendor_id'), '#{search_path(:vendors, :json)}', {values: [#{@booth.vendor.as_json(only: :id, methods: :to_s).to_json}]})

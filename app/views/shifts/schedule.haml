@@ -1,0 +1,31 @@
+= content_for(:title, 'Schedule')
+
+%div
+  .user-row.ruler
+    .shifts
+      - (8..19).each do |t|
+        %label.rule.inline(style="left: #{(t - 7.5) * 8.333}%")= "#{(t-1)%12+1}#{t<12?'am':'pm'}"
+  - @users.each do |user|
+    .user-row
+      .user-block.middle
+        %label= user.to_s.truncate(22)
+        .right.status.middle
+          - if user.shifts.all?(&:confirmed?)
+            = icon(:checkmark_selected, class: "success", title: "Confirmed on #{user.shifts.last.updated_at}")
+          - else
+            %i.octicon.octicon-primitive-dot.warning(title="Pending - updated #{user.shifts.last.updated_at}")
+      .shifts
+        - user.shifts.each do |shift|
+          .shift.middle(id="shift-#{shift.id}" title="#{shift.in_time} - #{shift.out_time}")
+            .handle.left
+            %small.time.left= shift.start_time.to_s(:simple_time)
+            .position
+              %label= shift.position
+            %small.time.right= shift.end_time.to_s(:simple_time)
+            .handle.right
+
+= set_var 'shifts_path', shifts_path(:json)
+:javascript
+  setTimeout(function() {
+    ScheduleController(new Date('#{@start.iso8601}').getTime(), new Date('#{@end.iso8601}').getTime(), #{@shift_data.to_json.html_safe});
+  }, 1);

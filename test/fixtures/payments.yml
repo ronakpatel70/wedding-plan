@@ -1,0 +1,75 @@
+one:
+  amount: 100
+  refund_amount: 0
+  description: Test Charge
+  status: 0
+  reason: MyString
+  stripe_charge_id: ch_16vbN52RDM5ZUbA0a4Fmhn7A
+  card: one
+  payer: dylan (User)
+  payable: one (Ticket)
+
+two:
+  amount: 20000
+  refund_amount: 0
+  description: Booth Deposit
+  status: 0
+  stripe_charge_id: ch_16vbN52RDM5ZUbA0a4Fmhn7A
+  card: one
+  payer: one (Vendor)
+  payable: one (Booth)
+
+three:
+  amount: 350
+  refund_amount: 0
+  description: Booth Deposit
+  status: 0
+  stripe_charge_id: ch_16vbN52RDM5ZUbA0a4Fmhn7A
+  card: one
+  payer: one (Vendor)
+  payable: two (Booth)
+
+no_card:
+  amount: 100
+  refund_amount: 0
+  description: Test Charge
+  status: 0
+  reason: MyString
+  payer: adrian (User)
+  payable: two (Ticket)
+
+declined:
+  amount: 100
+  refund_amount: 0
+  description: Declined payment
+  status: 2
+  card: one
+  payer: one (Vendor)
+  payable: two (Booth)
+
+scheduled:
+  amount: 100
+  refund_amount: 0
+  description: Scheduled payment
+  status: 6
+  scheduled_for: 2018-04-03
+  card: one
+  payer: one (Vendor)
+  payable: two (Booth)
+
+refunded:
+  amount: 100
+  refund_amount: 100
+  description: Refunded payment
+  status: 1
+  card: one
+  payer: one (Vendor)
+  payable: two (Booth)
+  stripe_charge_id: ch_123
+
+partial_refund:
+  amount: 5000
+  refund_amount: 2500
+  description: Partially refunded payment
+  status: 0
+  payer: one (Vendor)

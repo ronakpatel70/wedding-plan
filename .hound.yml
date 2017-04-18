@@ -1,0 +1,6 @@
+javascript:
+  ignore_file: .jshintignore
+scss:
+  enabled: false
+haml:
+  enabled: false

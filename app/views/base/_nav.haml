@@ -1,0 +1,35 @@
+%nav.top-bar{ data: {topbar: '', options: 'is_hover: false' } }
+  %section.top-bar-section
+    -# Right nav section
+    %ul.right
+      %li.search#search{ class: ('open' if @query) }
+        %input.search-field#search-field{ type: "text", placeholder: "Search", autocomplete: 'off',
+          spellcheck: 'false', value: @query, data: { url: search_path(format: :json) } }
+        %a#open-search= icon(:search)
+        %ul.dropdown.results#search-results
+      %li.has-dropdown
+        %a= current_user
+        %ul.dropdown
+          %li= link_to 'Dashboard', :root
+          %li= link_to 'Settings', :settings
+          %li.divider
+          %li= link_to 'Sign out', :session, data: { method: 'delete' }
+    -# Left nav section
+    %ul.left
+      = nav_link(icon(:we_white), :root, [], class: 'home')
+      = nav_link('Exhibitors', :vendors, 'Vendors' => :vendors, 'Booths' => :booths, 'Prizes' => :prizes,
+        'Signs' => :signs, 'Payments' => :payments, 'Subscriptions' => :subscriptions, 'SMS' => :texts)
+      = nav_link('Guests', :tickets, 'Tickets' => :tickets, 'Free Passes' => :passes, 'Packages' => :packages, 'Attendees' => :attendees)
+      = nav_link('Staffing', :shifts, 'Staff'=>:get_staff_list, 'Shifts' => :shifts, 'Job Applications' => :job_applications, 'Positions' => :positions, 'Transfers' => :transfers)
+      = nav_link('Manage', :shows, 'Shows' => :shows, 'Locations' => :locations, 'Articles' => :articles, 'Email' => :user_email)
+
+= yield(:sub_nav) if content_for?(:sub_nav)
+
+- if alert
+  = alert_box alert, 'alert'
+- if flash[:warning]
+  = alert_box flash[:warning], 'warning'
+- if notice
+  = alert_box notice, 'success'
+- if content_for?(:errors)
+  = alert_box(content_for(:errors), 'alert', false)

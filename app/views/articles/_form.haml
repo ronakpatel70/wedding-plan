@@ -1,0 +1,17 @@
+- show_errors_for(@article)
+
+= form_for(@article, builder: FormBuilder) do |f|
+  .row
+    .small-4.columns
+      .row
+        = f.select_col :page, 10, Article.pages.keys
+      .row
+        = f.text_col :title, 10
+      .row
+        = f.text_col :order, 4
+      .row
+        .small-12.columns
+          %button.button Save
+          = delete_link(@article)
+    .small-8.columns.end
+      = f.editor_col(:content, 12, rows: 15)

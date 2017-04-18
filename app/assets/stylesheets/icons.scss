@@ -1,0 +1,51 @@
+// Icon colors
+@mixin icon-color($class, $hex) {
+  i.#{$class} svg, i.#{$class} svg path {
+    fill: $hex;
+  }
+}
+
+@include icon-color("success", $success-color);
+@include icon-color("warning", $warning-color);
+@include icon-color("alert", $alert-color);
+@include icon-color("primary", $primary-color);
+@include icon-color("info", $info-color);
+@include icon-color("secondary", $secondary-color);
+
+.button-link {
+  &.success {color: $success-color;}
+  &.warning {color: $warning-color;}
+  &.alert {color: $alert-color;}
+  &.primary {color: $primary-color;}
+  &.info {color: $info-color;}
+  &.secondary {color: $secondary-color;}
+}
+
+.icon {
+  display: inline-block;
+  font-size: 21px;
+  svg {
+    height: 21px;
+    width: 21px;
+    path {
+      fill: $anchor-font-color;
+    }
+  }
+  &:hover svg path {
+    fill: $anchor-font-color-hover;
+  }
+}
+
+.octicon-primitive-dot {
+  border-radius: 50%;
+  display: inline-block;
+  margin-bottom: 1px;
+  width: 8px;
+  height: 8px;
+  &.success {
+    background-color: $success-color;
+  }
+  &.warning {
+    background-color: $warning-color;
+  }
+}

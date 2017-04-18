@@ -1,0 +1,10 @@
+- show_errors_for(@text)
+
+= form_for(@text, builder: FormBuilder) do |f|
+  = f.text_group(:recipient_id)
+  = f.select_group(:group, @groups, include_blank: true)
+  = f.text_area_group(:message)
+  %button.button Save
+
+:javascript
+  new TokenField(id('text_recipient_id'), '#{search_path(:vendors, :json)}')

@@ -1,0 +1,36 @@
+- show_errors_for(@user)
+
+= form_for(@user, builder: FormBuilder) do |f|
+  .row
+    .small-6.columns
+      - if @vendor
+        = hidden_field_tag 'user[vendor_ids][]', @vendor.id
+      - if @current_show
+        = hidden_field_tag 'user[show_ids][]', @current_show.id
+      .row
+        = f.text_col :first_name, 6
+        = f.text_col :last_name, 6, col: 'end'
+      = f.text_group :email
+      = f.phone_group :phone
+      = f.password_group :password
+      .row
+        = f.switch_col :receive_email, 6
+        = f.switch_col :receive_sms, 6, col: 'end'
+      = f.select_group :roles, Role.types.keys.map { |k| k.titleize }, {}, multiple: true, style: 'height: 4em;'
+    .small-6.columns
+      %fieldset
+        %legend Mailing Address
+        = f.fields_for :address do |a|
+          = a.text_group :street, label: 'Street Address'
+          .row
+            = a.text_col :city, 5
+            = a.select_col :state, 3, Country['US'].states.map { |k, v| [v['name'], k] }
+            = a.text_col :zip, 4, col: 'end'
+      %fieldset
+        %legend Wedding
+        = f.fields_for(:events, @user.events) do |event_fields|
+          = event_fields.date_group :date, include_blank: true
+  .row
+    .small-5.columns
+      %button.button Save
+      = delete_link(@user)

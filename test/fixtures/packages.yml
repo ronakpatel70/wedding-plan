@@ -1,0 +1,26 @@
+one:
+  show: two
+  ribbon: 1
+  type: 2
+  name:
+  winner_id:
+  prizes: [one, two]
+
+two:
+  show: two
+  ribbon: 2
+  type: 2
+  name:
+  winner_id:
+
+highlighted:
+  show: two
+  type: 1
+  name:
+  winner_id:
+
+grand:
+  show: two
+  type: 0
+  name:
+  winner_id:

@@ -1,0 +1,12 @@
+- show_errors_for(@point)
+
+= form_for(@point, builder: FormBuilder) do |f|
+  = f.text_group(:event_id)
+  = f.text_group(:vendor_id)
+  = f.select_group(:status, Point.statuses.keys)
+  = f.number_group(:quantity, in: 0..5)
+  = f.text_group(:reason)
+  = f.date_group(:date)
+  %button.button Save
+  - if @point.persisted?
+    = link_to('Delete Point', @point, class: 'button alert', method: 'delete', data: {confirm: 'Are you sure?'})

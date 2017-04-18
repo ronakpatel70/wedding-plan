@@ -1,0 +1,34 @@
+one:
+  booth: one
+  type: power
+  quantity: 1
+  price: 2500
+
+two:
+  booth: one
+  type: sign
+
+beverage:
+  booth: two
+  type: beverage
+  value: beer
+
+labels:
+  booth: one
+  type: labels
+  price: 4000
+
+bag_promo:
+  booth: one
+  type: bag_promo
+  price: 25000
+
+power_two:
+  booth: two
+  type: power
+  price: 2500
+
+bag_only:
+  booth: bag_only
+  type: bag_promo
+  price: 60000

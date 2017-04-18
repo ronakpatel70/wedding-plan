@@ -1,0 +1,12 @@
+%meta(charset='utf-8')
+%meta(name='viewport' content='width=device-width, initial-scale=1.0')
+
+-# Remove yield(:title) once set_title is implemented on every page
+%title= @html_title || yield(:title) || 'Admin Dashboard'
+
+= stylesheet_link_tag('//admin.weddingexpo.co/static/461798/9246292CF16DC10F4.css', 'data-turbolinks-track' => 'reload')
+= stylesheet_link_tag('admin', media: 'all', 'data-turbolinks-track' => 'reload')
+= javascript_include_tag('admin', 'data-turbolinks-track' => 'reload')
+= javascript_include_tag('https://js.stripe.com/v2/', 'data-turbolinks-track' => 'reload')
+%script(type="text/javascript")= "Stripe.setPublishableKey('#{Rails.application.secrets.stripe_publishable_key}');"
+= csrf_meta_tags

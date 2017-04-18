@@ -1,0 +1,18 @@
+- set_title('Texts')
+= content_for(:actions, action_list(:new))
+= content_for(:count, @texts.length.to_s)
+
+%table
+  %thead
+    %tr
+      %th From
+      %th To
+      %th(width="140") Status
+      %th(width="190") Timestamp
+  %tbody
+    - @texts.each do |text|
+      %tr.link(data-href="#{text_path(text)}" title="#{text.message}")
+        %td= texter_display(text.sender, text.sender_tel)
+        %td= texter_display(text.recipient, text.recipient_tel)
+        %td= text.status
+        %td= text.created_at

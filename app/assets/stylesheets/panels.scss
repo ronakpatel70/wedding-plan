@@ -1,0 +1,13 @@
+.panel {
+  padding: 10px;
+}
+
+.panel.success {
+  @include panel(scale-color($success-color, $lightness: 92%), 10px);
+}
+.panel.alert {
+  @include panel(scale-color($alert-color, $lightness: 92%), 10px);
+}
+.panel.warning {
+  @include panel(scale-color($warning-color, $lightness: 92%), 10px);
+}

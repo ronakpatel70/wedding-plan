@@ -1,0 +1,19 @@
+one:
+  sender: dylan (user)
+  recipient: one (vendor)
+  from: dylan@waits.io
+  to: info@winecountrybride.com
+  read_at: 2015-12-07 13:31:25
+  subject:
+  body: I am interested in your services.
+  type: 0
+
+two:
+  sender: dylan (user)
+  recipient: one (vendor)
+  from: dylan@waits.io
+  to: info@winecountrybride.com
+  read_at: 2015-12-07 13:31:25
+  subject:
+  body: I am interested in your services.
+  type: 0

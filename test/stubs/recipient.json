@@ -1,0 +1,25 @@
+{
+  "id": "rp_000000",
+  "object": "recipient",
+  "active_account": null,
+  "cards": {
+    "object": "list",
+    "data": [
+
+    ],
+    "has_more": false,
+    "total_count": 0,
+    "url": "/v1/recipients/rp_000000/cards"
+  },
+  "created": 1470876848,
+  "default_card": null,
+  "description": "Recipient for Abigail Brown",
+  "email": "wbdorange@gmail.com",
+  "livemode": false,
+  "metadata": {
+  },
+  "migrated_to": null,
+  "name": "Dylan Waits",
+  "type": "individual",
+  "verified": true
+}

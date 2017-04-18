@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %meta(content="text/html; charset=UTF-8" http-equiv="Content-Type")
+    - set_title("Booth for #{@booth.vendor.name}")
+    = render 'head'
+  %body
+    = render 'nav'
+    %main
+      %div{:class => @layout_container || 'container'}
+        %header.page-header
+          %h3.left= "Booth for #{@booth.vendor.name.truncate(24)}"
+          - if content_for?(:actions)
+            %ul.actions.left= yield(:actions)
+        %aside= side_nav(url_for(@booth), 'Overview' => nil, 'Edit' => :edit, 'Add-ons' => :addons, 'Billing' => :billing,)
+        %section
+          = yield

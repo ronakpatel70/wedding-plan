@@ -1,0 +1,51 @@
+today:
+  location: windsor
+  start: <%= DateTime.now.change(hour: 12, min: 0) %>
+  end: <%= DateTime.now.change(hour: 17, min: 0)%>
+  early_bird_price: 1000
+  online_price: 1500
+  door_price: 2000
+  early_bird_end_date: <%= Date.today - 10.days %>
+
+next:
+  location: sr
+  start: <%= DateTime.now.change(hour: 12, min: 0) + 5.days %>
+  end: <%= DateTime.now.change(hour: 17, min: 0) + 5.days %>
+  early_bird_price: 1000
+  online_price: 1500
+  door_price: 2000
+  early_bird_end_date: <%= Date.today - 5.days %>
+
+following:
+  location: sr
+  start: <%= DateTime.now.change(hour: 12, min: 0) + 10.days %>
+  end: <%= DateTime.now.change(hour: 17, min: 0) + 10.days %>
+  early_bird_price: 1000
+  online_price: 1500
+  door_price: 2000
+  early_bird_end_date: <%= Date.today %>
+
+one:
+  location: sr
+  start: 2015-09-30 12:00:00
+  end: 2015-09-30 15:00:00
+
+two:
+  location: sr
+  start: <%= DateTime.now.change(hour: 12, min: 0) + 90.days %>
+  end: <%= DateTime.now.change(hour: 17, min: 0) + 90.days %>
+  early_bird_price: 1000
+  online_price: 1500
+  door_price: 2000
+  early_bird_end_date: <%= Date.today + 60.days %>
+
+three:
+  location: sr
+  start: 2014-10-01 12:00:00
+  end: 2014-10-01 15:00:00
+
+seventeen:
+  location: sr
+  start: 2017-01-21 12:00:00
+  end: 2017-01-21 15:00:00
+  online_price: 1500

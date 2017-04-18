@@ -1,0 +1,21 @@
+- show_errors_for(@show)
+
+= form_for(@show, builder: FormBuilder) do |f|
+  = f.select_group(:location_id, Location.all.order(:name).map { |l| [l.name, l.id] })
+  = f.date_group(:date)
+
+  .row
+    = f.time_col(:start, 6)
+    = f.time_col(:end, 6, col: 'end')
+
+  .row
+    = f.number_col(:early_bird_price, 4)
+    = f.number_col(:online_price, 4)
+    = f.number_col(:door_price, 4)
+
+  = f.date_group(:early_bird_end_date, include_blank: true)
+
+  = f.number_group(:prize_ribbons)
+
+  %button.button Save
+  = delete_link(@show, destructive: true)

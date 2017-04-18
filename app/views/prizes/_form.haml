@@ -1,0 +1,26 @@
+- show_errors_for(@prize)
+
+= form_for(@prize, builder: FormBuilder) do |f|
+  - if @prize.vendor
+    = static_group 'Vendor', @prize.vendor
+  - else
+    = f.text_group(:vendor_id, spellcheck: false)
+
+  = f.select_group :type, Prize.types.keys
+  = f.select_group :status, Prize.statuses.keys
+
+  = f.text_group :name
+
+  = f.text_group :value, value: @prize.value / 100, float: true
+  = f.text_group :quantity, float: true
+
+  = f.text_area_group :rules, rows: 4
+
+  - if @prize.highlighted?
+    = f.switch_group(:is_manned, label: 'Manned')
+
+  %button.button Save
+  = delete_link(@prize)
+
+:javascript
+  new TokenField(id('prize_vendor_id'), '#{search_path(:vendors, :json)}')

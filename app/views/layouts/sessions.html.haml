@@ -1,0 +1,14 @@
+!!! html
+%html
+  %head
+    %meta(charset='utf-8')
+    %meta(name='viewport' content='width=device-width, initial-scale=1.0')
+
+    %title= 'Sign In · The Wedding Expo'
+
+    = stylesheet_link_tag('//cloud.typography.com/7005452/676864/css/fonts.css', 'data-turbolinks-track' => true)
+    = stylesheet_link_tag('login', media: 'all')
+    = csrf_meta_tags
+  %body.ghost.middle.center
+    .login-box>
+      = yield

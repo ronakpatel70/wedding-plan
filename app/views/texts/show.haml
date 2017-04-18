@@ -1,0 +1,8 @@
+- set_container(:small)
+- set_title('Text Message')
+
+%p= static_group('Sender', texter_display(@text.sender, @text.sender_tel))
+%p= static_group('Recipient', texter_display(@text.recipient, @text.recipient_tel))
+%p= static_group('Message', @text.message)
+%p= static_group('Status', @text.status)
+%p= static_group('Timestamp', @text.created_at)

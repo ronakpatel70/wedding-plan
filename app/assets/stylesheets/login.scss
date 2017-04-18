@@ -1,0 +1,30 @@
+// This file is only served on the login page.
+
+@import "settings";
+@import "mixins";
+@import "typography";
+@import "misc";
+
+.login-box {
+  background-color: white;
+  border: 1px solid #e0e2e3;
+  border-radius: 3px;
+  padding: 2.25rem;
+  width: 463px;
+
+  .logo-box {
+    padding: 0 1.25rem 1.75rem;
+    .logo {
+      margin: 0 auto;
+      display: block;
+      width: 50px;
+      height: 40px;
+    }
+  }
+
+  .login-form {
+    .button {
+      margin-bottom: 0.75rem;
+    }
+  }
+}

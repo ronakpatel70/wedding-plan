@@ -1,0 +1,37 @@
+3x6:
+  name: Starter
+  price: 60000
+  industries: [financial, health, music, officiant, specialty, favors, travel, lodging, planning]
+3x10:
+  name: Narrow
+  price: 75000
+  table: "6'"
+6x6:
+  name: Basic
+  price: 75000
+  table: "4'"
+6x8:
+  name: Narrow
+  price: 80000
+  table: "6'"
+6x10:
+  name: Deluxe
+  price: 85000
+  table: "8'"
+6x12:
+  name: Photography
+  price: 140000
+  table: "8'"
+  industries: [photography]
+6x20:
+  name: Showcase
+  price: 150000
+  table: "8'"
+12x10:
+  name: Lounge
+  price: 150000
+  table: "8'"
+10x10:
+  name: Outdoor
+  price: 85000
+  table: "8'"

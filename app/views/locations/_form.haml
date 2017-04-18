@@ -1,0 +1,20 @@
+- show_errors_for(@location)
+
+= form_for(@location, builder: FormBuilder) do |f|
+  .row
+    = f.text_col :name, 5, label: 'Name (e.g. city)'
+  .row
+    = f.text_col :handle, 5, label: 'Handle (letters and dashes only, goes in the URL)'
+  = f.fields_for :address do |a|
+    .row
+      = a.text_col :name, 5, label: 'Building (e.g. Luther Burbank Center)'
+    .row
+      = a.text_col :street, 5, label: 'Street Address'
+    .row
+      = a.text_col :city, 3
+      = a.select_col :state, 2, Country['US'].states.map { |k, v| [v['name'], k] }
+      = a.text_col :zip, 2, col: 'end'
+  .row
+    .small-5.columns
+      %button.button Save
+      = delete_link(@location, destructive: true)

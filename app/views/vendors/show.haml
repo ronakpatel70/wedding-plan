@@ -1,0 +1,53 @@
+- content_for(:title,  @vendor)
+- content_for(:actions) do
+  %li.action.inline= link_to(icon(:user_add), new_vendor_contact_path(vendor_id: @vendor.id, redirect: request.path), class: "icon", title: "Add contact")
+  %li.action.inline= link_to(icon(:document_plus), new_vendor_payment_path(vendor_id: @vendor.id), class: "icon", title: "New payment")
+  - if @vendor.primary
+    %li.action.inline= mail_to(@vendor.users.pluck(:email).join(", "), icon(:envelope), class: "icon", title: "Send email")
+    %li.action.inline
+      %a.icon.dropdown(data-dropdown="more-dropdown")= icon(:more)
+      %ul.f-dropdown.right-arrow#more-dropdown(data-dropdown-content="")
+        %li= link_to("Merge with...", merge_vendor_path(@vendor))
+        %li= link_to("Sign in as this vendor", login_user_path(@vendor.primary), target: "_blank")
+
+- if @vendor.profile_image?
+  - content_for(:image, link_to(image_tag(@vendor.profile_image.url(:tiny)), @vendor.profile_image.url, target: "_blank", title: "View profile image"))
+
+.row(style="margin-top: 7px")
+  .small-6.columns
+    = link_to "Profile", edit_vendor_path(@vendor)
+    |
+    = link_to "Offers", vendor_offers_path(@vendor)
+    |
+    = link_to "Testimonials", vendor_testimonials_path(@vendor)
+
+%br
+.row
+  .small-4.columns
+    %label Users (show contacts)
+    %ul
+      - @vendor.users.each do |user|
+        %li= link_to(user.to_s, user)
+  .small-4.columns
+    %label Cards
+    %ul
+      - @vendor.cards.order("expiry DESC").each do |card|
+        %li
+          - if card.deleted?
+            %span.deleted= card
+          - else
+            %span
+              = card.to_s + " " + card.expiry.to_s(:expiry)
+              - if card == @vendor.default_card
+                %span.warning(title="Default card for subscriptions") ⭑
+              - else
+                = link_to("x", card, method: "delete", data: { confirm: "Delete this card?" })
+      %li= link_to("Add card", new_vendor_card_path(@vendor))
+  .small-4.columns.end
+    %label Booths
+    %ul
+      - @vendor.booths.limit(3).order("show_id DESC").each do |booth|
+        %li
+          - if booth.pending?
+            %i.octicon.octicon-primitive-dot.warning(title="Pending since #{booth.created_at}")
+          = link_to(booth.to_s, booth)

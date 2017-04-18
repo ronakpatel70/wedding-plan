@@ -1,0 +1,55 @@
+one:
+  show: two
+  vendor: one
+  status: 1
+  coordinate: one
+  size: 6x6
+  payment_method: 1
+  card_id:
+  requests: MyText
+  payment_schedule: 1
+  checked_in_at: 2015-10-19 13:07:31
+  flagged: true
+  sign: one
+  total: 101500
+  balance: 81500
+
+two:
+  show: two
+  vendor: one
+  status: 1
+  coordinate: two
+  size: 6x10
+  payment_method: 0
+  card_id:
+  requests: MyText
+  industries: [dj]
+  payment_schedule: 1
+  checked_in_at: 2015-10-19 13:07:31
+  total: 122500
+  balance: 122150
+
+no_amenities:
+  size: 3x6
+  show: three
+  vendor: two
+  status: 0
+  visible: false
+  total: 59900
+  balance: 59900
+
+bag_only:
+  show: three
+  vendor: two
+  status: 0
+  visible: false
+  total: 75000
+  balance: 75000
+
+nothing:
+  show: three
+  vendor: two
+  status: 0
+  visible: false
+  total: 0
+  balance: 0

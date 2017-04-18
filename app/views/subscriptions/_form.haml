@@ -1,0 +1,39 @@
+- show_errors_for(@subscription)
+
+= form_for(@subscription, builder: FormBuilder) do |f|
+  - if @subscription.persisted?
+    = static_group 'Vendor', link_to(@subscription.vendor, @subscription.vendor)
+    = static_group 'Created', @subscription.created_at.to_date
+  - else
+    = f.text_group(:vendor_id, spellcheck: false)
+  - if @subscription.persisted?
+    = static_group 'Payment Method', @subscription.vendor&.default_card
+    = static_group 'Next Payment', @subscription.current_period_end.to_date
+    = static_group 'Status', @subscription.status.humanize
+  .div
+    = f.label :plan
+    = f.select :plan, {"Rewards monthly ($150/mo)" => "rewards_monthly", "Rewards yearly ($1,500/yr)" => "rewards_yearly"}, {}, style: "margin-bottom: 0"
+    %p
+      %small Changing plans will charge the vendor immediately.
+  = f.select_group :coupon, {"Show discount ($140 off)" => "show_discount_monthly", "Show discount ($1,400 off)" => "show_discount_yearly"}, include_blank: true
+  .div
+    = f.date_group :trial_end, include_blank: true
+  %button.button Save
+  - if @subscription.persisted?
+    = link_to('Cancel subscription', @subscription, class: 'button-link alert', method: 'delete',
+      data: {confirm: 'Are you sure you want to cancel this subscription?'})
+
+:javascript
+  new TokenField(id('subscription_vendor_id'), '#{search_path(:vendors, :json)}', {}, function(text, vid) {
+    let input = this;
+    if (!vid) return;
+    api(`/vendors/${vid}.json`, function() {
+      let resp = JSON.parse(this.response);
+      if (!resp.default_card_id) return;
+      api(`/cards/${resp.default_card_id}.json`, function() {
+        let card = JSON.parse(this.response);
+        let text = ` - ${card.brand} ${card.last4}`;
+        input.value += text;
+      });
+    });
+  });

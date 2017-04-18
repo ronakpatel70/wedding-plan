@@ -1,0 +1,17 @@
+= content_for(:title, 'Locations')
+= content_for(:actions, action_list(:new))
+
+%table
+  %thead
+    %tr
+      %th(width="300") Location
+      %th(width="300") Building
+      %th(width="200") Handle
+      %th(width="200") Shows
+  %tbody
+    - @locations.each do |location|
+      %tr.link(data-href="#{location_path(location)}")
+        %td= location
+        %td= location.address.name
+        %td= location.handle
+        %td= location.shows.count

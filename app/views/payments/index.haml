@@ -1,0 +1,30 @@
+= content_for(:title, "Payments")
+
+%table
+  %thead
+    %tr
+      %th(width="220") Payer
+      %th(width="130") Amount
+      %th(width="150") Method
+      %th(width="130") Status
+      %th(width="210") Description
+      %th(width="150") Date
+  %tbody
+    = fold("scheduled payment", @scheduled)
+    - @payments.each do |payment|
+      %tr{ data: { href: payment_path(payment) }, class: "#{'folded' if payment.scheduled?} #{payment.declined? ? 'canceled' : 'link'}" }
+        %td= payment.payer
+        %td= number_to_currency(payment.amount / 100.0).sub(".00", "")
+        %td
+          - if payment.card? && payment.card
+            = payment.card.brand.sub("American Express", "Amex") + " " + payment.card.last4
+          - else
+            = payment.method.titleize
+        %td= payment.paid? && payment.refund_amount > 0 ? "Partial Refund" : payment.status.titleize
+        %td= payment.description
+        %td
+          - if payment.scheduled?
+            %i.octicon.octicon-primitive-dot.warning(title="Created at #{payment.created_at}")
+            = payment.scheduled_for
+          - else
+            = payment.captured_at

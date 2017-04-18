@@ -1,0 +1,58 @@
+- show_errors_for(@vendor)
+
+= form_for(@vendor, builder: FormBuilder) do |f|
+  .row
+    = f.text_col(:name, 4, label: 'Business name')
+    = f.select_col(:industry, 2, Vendor.industries.keys)
+    = f.phone_col(:cell_phone, 3, label: 'Day-of-show cell phone', col: 'end')
+  .row
+    .small-6.columns
+      %fieldset
+        %legend Public Contact Info
+        .row
+          = f.text_col(:contact, 4, label: 'Name')
+          = f.text_col(:email, 4, label: 'Email')
+          = f.phone_col(:phone, 4, label: 'Phone', col: 'end')
+        .row
+          = f.text_col(:website, 6)
+          = f.text_col(:facebook, 6, col: 'end')
+      %fieldset
+        %legend Billing Address
+        = f.fields_for :billing_address do |a|
+          = a.text_group :street, label: 'Street Address'
+          .row
+            = a.text_col :city, 5
+            = a.select_col :state, 3, Country['US'].states.map { |k, v| [v['name'], k] }
+            = a.text_col :zip, 4, col: 'end'
+      %fieldset
+        %legend Storefront Address
+        = f.fields_for :storefront_address do |a|
+          = a.text_group :street, label: 'Street Address'
+          .row
+            = a.text_col :city, 5
+            = a.select_col :state, 3, Country['US'].states.map { |k, v| [v['name'], k] }
+            = a.text_col :zip, 4, col: 'end'
+    .small-6.columns
+      %fieldset
+        %legend Rewards
+        .row
+          = f.select_col :rewards_status, 6, Vendor.rewards_statuses.keys
+          = f.select_col :grab_card_status, 6, Vendor.grab_card_statuses.keys, col: 'end'
+        .row
+          = f.text_area_col(:rewards_profile, 12)
+        .row
+          = f.switch_col :has_slides, 3
+          = f.switch_col :allow_multi_points, 3, label: 'Multi-point'
+          = f.file_col :profile_image, 6, col: 'end'
+        .row
+          = f.select_col :default_card_id, 8, @vendor.cards.active.map {|c| ["#{c.to_s} - #{c.expiry.to_s(:expiry)}", c.id]}, include_blank: !@vendor.default_card, label: 'Default card for subscriptions'
+      %fieldset
+        %legend Show Statuses
+        - Show.fresh.where("start > ?", Date.today).each do |show|
+          .row
+            %label= show
+            = select_tag("vendor[show_statuses][#{show.id}]", options_for_select(Vendor::SHOW_STATUSES, @vendor.show_statuses[show.id.to_s]), include_blank: true)
+  .row
+    .small-6.columns
+      %button.button Save
+      = delete_link(@vendor)

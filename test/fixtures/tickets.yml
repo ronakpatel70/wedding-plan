@@ -1,0 +1,29 @@
+one:
+  show: one
+  user: dylan
+  quantity: 2
+  free: false
+  paid: true
+
+two:
+  show: one
+  user: adrian
+  quantity: 3
+  free: false
+  paid: true
+
+vendor_free_pass:
+  show: one
+  user: dylan
+  quantity: 1
+  free: true
+  paid: false
+  vendor: two
+  url: http://wcb.io/1234567
+
+free_pass:
+  show: one
+  user: adrian
+  quantity: 1
+  free: true
+  paid: false

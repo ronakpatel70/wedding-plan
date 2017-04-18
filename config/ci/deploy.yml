@@ -1,0 +1,17 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: alpine
+    tag: "3.3"
+
+inputs:
+- name: build
+
+params:
+  PRIVATE_KEY:
+
+run:
+  dir: build
+  path: ./deploy

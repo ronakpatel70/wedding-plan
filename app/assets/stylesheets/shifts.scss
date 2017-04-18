@@ -1,0 +1,123 @@
+#trash {
+  background-color: rgba(white, 0.9);
+  fill: #d8d8d8;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  width: 147px;
+  svg {
+    @include center(56px, 42px);
+    pointer-events: none;
+  }
+  &.dragover {fill: $alert-color;}
+}
+
+.position {
+  .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+  }
+}
+
+.user-row {
+  border-bottom: 1px solid $panel-border-color;
+  box-sizing: content-box;
+  position: relative;
+  height: 40px;
+  .user-block {
+//     border-right: 1px solid $panel-border-color;
+    width: 202px;
+    float: left;
+    height: 100%;
+    padding: 0 10px;
+    .status {
+      height: 100%;
+      margin-right: 10px;
+    }
+  }
+  .shifts {
+    left: 202px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+  }
+  &.ruler {
+    height: 21px;
+    .rule {
+      color: $iron;
+      font-size: 11px;
+      margin-left: -14px;
+      padding: 2px 0 0 0;
+      position: absolute;
+      text-align: center;
+      width: 28px;
+      &.right {
+        right: 48px;
+        width: 32px;
+      }
+    }
+  }
+  .timecard {
+    float: left;
+    margin-top: 2px;
+    width: 160px;
+    input {
+      float: left;
+      width: 70px;
+      &:not(:last-child) {
+        border-right: none;
+      }
+      &:last-child {
+        border-left: none;
+      }
+    }
+  }
+  .total {
+    float: right;
+    padding-top: 10px;
+    text-align: center;
+    width: 39px;
+  }
+  .transfer {
+    float: right;
+    padding-top: 10px;
+    text-align: center;
+    width: 43px;
+  }
+}
+
+.shift {
+  overflow: hidden;
+  cursor: default;
+  height: 100%;
+  position: absolute;
+  text-align: center;
+  user-select: none;
+  background-color: scale-color($white, $lightness: -5%);
+  .handle {
+    cursor: col-resize;
+    height: 100%;
+    width: 2px;
+    position: absolute;
+    top: 0;
+    background-color: $aluminum;
+    &:hover {background-color: $jet;}
+    &.left {left: 0;}
+    &.right{right: 0;}
+  }
+  .time {
+    display: none;
+    position: absolute;
+    height: 100%;
+    padding: 13px 0;
+    &.left {left: 6px;}
+    &.right{right: 6px;}
+  }
+  .position {position: relative; z-index: 1;}
+  &.sliding {
+    .time {display: inline-block;}
+  }
+}

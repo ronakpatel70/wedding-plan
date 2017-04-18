@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# This script encrypts a database snapshot and uploads it to Dropbox.
+
+ANSI_GREEN="\033[32;1m"
+ANSI_RED="\033[31;1m"
+ANSI_RESET="\033[0m"
+FILENAME=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+UPLOAD_URL="https://content.dropboxapi.com/2/files/upload"
+
+if [ "$#" -ne 1 ]; then
+	echo -en "${ANSI_RED}Description is required.\n${ANSI_RESET}"
+	exit 1
+fi
+
+mkdir -p tmp/backups
+
+pg_dump -cCO -Fc -Z8 -w -h "$DATABASE_HOST" -U "$DATABASE_USER" wedding_expo | gpg2 --no-tty -o "tmp/backups/$FILENAME" -e -r dylan@waits.io -r acousens@gmail.com
+
+path="tmp/backups/$FILENAME"
+if [ ! -e $path ]; then
+    rmdir tmp/backups
+    echo -en "${ANSI_RED}Failed to encrypt database dump. File was discarded.\n${ANSI_RESET}"
+    exit 2
+fi
+
+filesize=$(wc -c <$path)
+if [ $filesize -lt 1024 ]; then
+    rm $path
+    rmdir tmp/backups
+    echo -en "${ANSI_RED}Failed to dump database.\n${ANSI_RESET}"
+    exit 3
+fi
+
+curl -X POST $UPLOAD_URL \
+	--header "Authorization: Bearer $DROPBOX_ACCESS_TOKEN" \
+	--header "Dropbox-API-Arg: {\"path\": \"/Wedding Expo Team Folder/Snapshots/$FILENAME\", \"mode\": \"add\", \"autorename\": true, \"mute\": false}" \
+	--header "Content-Type: application/octet-stream" \
+	--data-binary @$path
+echo -en "\n${ANSI_GREEN}Uploaded $FILENAME.\n${ANSI_RESET}"
+
+rm -r tmp/backups
+exit 0

@@ -1,0 +1,29 @@
+= content_for(:title, 'Subscriptions')
+= content_for(:actions, action_list(:new))
+= content_for(:count, @subscriptions.length.to_s)
+
+%table
+  %thead
+    %tr
+      %th(width="250") Vendor
+      %th(width="175") Plan
+      %th(width="150") Card
+      %th(width="130") Status
+      %th(width="130") Start
+      %th(width="130") Next Payment
+  %tbody
+    - @subscriptions.each do |subscription|
+      %tr(data-href="#{subscription_path(subscription)}" class="#{subscription.canceled? ? 'canceled' : 'link'}")
+        %td= subscription.vendor
+        %td= subscription.plan.sub('rewards_', '').humanize
+        %td= subscription.vendor&.default_card
+        %td= subscription.status.humanize
+        %td= subscription.created_at.to_date
+        %td
+          - case subscription.status
+          - when 'canceled'
+            = '--'
+          - when 'past_due', 'unpaid'
+            = link_to('Retry', url_for([:pay, subscription]), method: :post)
+          - else
+            = subscription.current_period_end.to_date
